@@ -12,7 +12,8 @@ const getEndRadius = (percent) => {
 // get point position
 export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize }) => {
   const temp = baseAngle * ((360 * percent) - 90);
-  return { x: center.x + ((radius - (((lineWidth - fontSize) / 2))) * Math.cos(temp)), y: (center.y + ((radius - (((lineWidth - fontSize) / 2))) * Math.sin(temp))) };
+  const paddingHalf = (lineWidth - fontSize) / 2;
+  return { x: center.x + ((radius - paddingHalf) * Math.cos(temp)), y: (center.y + ((radius - paddingHalf) * Math.sin(temp))) };
 };
 
 
