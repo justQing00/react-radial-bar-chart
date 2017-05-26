@@ -1,5 +1,5 @@
 # react-radial-bar-chart
-环形柱状图(玉玦图)
+环形柱状图(玉玦图) by canvas
 
 ### How to use
 ```javascript
