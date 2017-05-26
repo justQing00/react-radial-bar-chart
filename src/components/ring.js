@@ -1,11 +1,16 @@
 /*
 * props: {
-*   percent: 0, // 百分比
-*   value: 0,  //  具体值
-*   width: 250, // 宽度
-*   height: 250, // 高度
-*   radius: 100, // 半径
-*   strokeStyle: '#1EB6F8', // 边颜色
+    list: [
+      { name: 'Q1', percent: 0.5 },
+      { name: 'Q2', percent: 0.4 },
+      { name: 'Q3', percent: 0.3 },
+      { name: 'Q4', percent: 0.2 },
+    ],
+    lineWidth: 20,
+    width: 250,
+    height: 250,
+    radius: 100,
+    strokeStyle: '#1EB6F8',
 * }
 */
 
@@ -19,10 +24,26 @@ const getEndRadius = (percent) => {
   return percent && (((circumference * percent) - partCircumference));
 };
 
-// 获得点坐标
+// get point position
 const getPointPosition = (center, radius, percent) => {
   const temp = baseAngle * ((360 * percent) - 90);
   return { x: center.x + (radius * Math.cos(temp)), y: center.y + (radius * Math.sin(temp)) };
+};
+
+// temp Angle change
+const changeTmpAngle = (tmpAngleList, endRadiusList) => {
+  let num = 0;
+  const length = endRadiusList.length;
+  for (let i = 0; i < length; i += 1) {
+    if (tmpAngleList[i] >= endRadiusList[i]) {
+      num += 1;
+    } else if (tmpAngleList[i] + incre > endRadiusList[i]) {
+      tmpAngleList[i] = endRadiusList[i];
+    } else {
+      tmpAngleList[i] += incre;
+    }
+  }
+  return num === length;
 };
 
 export default class Ring {
@@ -55,7 +76,7 @@ export default class Ring {
 
   drwaText = (ctx) => {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.font = this.fontSize + 'px Helvetica Neue For Number';
+    ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'center';
     const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radius, this.percent);
     ctx.fillText(this.percent, textPosition.x, textPosition.y);
@@ -82,18 +103,3 @@ export default class Ring {
     requestAnimationFrame(() => this.draw(ctx));
   }
 }
-
-const changeTmpAngle = (tmpAngleList, endRadiusList) => {
-  let num = 0;
-  const length = endRadiusList.length;
-  for (let i = 0; i < length; i += 1) {
-    if (tmpAngleList[i] >= endRadiusList[i]) {
-      num += 1;
-    } else if (tmpAngleList[i] + incre > endRadiusList[i]) {
-      tmpAngleList[i] = endRadiusList[i];
-    } else {
-      tmpAngleList[i] += incre;
-    }
-  }
-  return num === length;
-};
