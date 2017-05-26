@@ -10,7 +10,7 @@ const getEndRadius = (percent) => {
 };
 
 // percent direct out
-const isDirectOut = (percent) => {
+const isPercentDirectOut = (percent) => {
   return percent <= 0.25 || percent > 0.75;
 };
 
@@ -18,7 +18,7 @@ const isDirectOut = (percent) => {
 export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize }) => {
   const angle = baseAngle * ((360 * percent) - 90);
   let realRadius = null;
-  if (isDirectOut(percent)) { // percent direction is not same
+  if (isPercentDirectOut(percent)) { // percent direction is not same
     realRadius = radius - ((lineWidth - fontSize) / 2);
   } else {
     realRadius = radius + ((lineWidth - fontSize) / 2);
@@ -28,7 +28,7 @@ export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize 
 
 // get rotate
 export const getRotate = ({ endRadius, percent }) => {
-  if (isDirectOut(percent)) {  // percent direction is not same
+  if (isPercentDirectOut(percent)) {  // percent direction is not same
     return endRadius - startRadius;
   }
   return endRadius + startRadius;
