@@ -22,8 +22,8 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 ### CheckList
 ##### 0.1.1
 * draw single ring (finish)
+* multi ring (finish)
 * draw value at the end of ring (finish)
-* multi ring
 * multi ring width atuo change
 * click event for each ring
 * draw ring name at the bagin of ring

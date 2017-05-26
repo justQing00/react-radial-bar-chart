@@ -75,11 +75,15 @@ export default class Ring {
   }
 
   drwaText = (ctx) => {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
-    ctx.textAlign = 'center';
-    const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radius, this.percent);
-    ctx.fillText(this.percent, textPosition.x, textPosition.y);
+    const length = this.radiusList.length;
+    for (let i = 0; i < length; i += 1) {
+      const tempPercent = this.percentList[i];
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
+      ctx.textAlign = 'center';
+      const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radiusList[i], tempPercent);
+      ctx.fillText(tempPercent, textPosition.x, textPosition.y);
+    }
   }
 
   drawBase = (ctx) => { // 绘制
@@ -97,6 +101,7 @@ export default class Ring {
 
   draw = (ctx) => {
     if (changeTmpAngle(this.tmpAngleList, this.endRadiusList)) {
+      this.drwaText(ctx);
       return;
     }
     this.drawBase(ctx);
