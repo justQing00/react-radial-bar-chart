@@ -50,10 +50,18 @@ export default class Ring {
     ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'center';
     for (let i = 0; i < length; i += 1) {
+      ctx.fillText(this.nameList[i], this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
+    }
+    for (let i = 0; i < length; i += 1) {
+      ctx.save();
       const tempPercent = this.percentList[i];
       const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radiusList[i], tempPercent);
-      ctx.fillText(tempPercent, textPosition.x, textPosition.y); // percent show
-      ctx.fillText(this.nameList[i], this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
+      ctx.translate(textPosition.x, textPosition.y); // change center point
+      ctx.rotate(this.endRadiusList[i] - startRadius);
+      ctx.fillText(tempPercent, 0, 0); // percent show
+      ctx.restore();
     }
   }
 
