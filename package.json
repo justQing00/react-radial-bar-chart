@@ -1,0 +1,36 @@
+{
+  "name": "react-drag-resize",
+  "version": "0.1.1",
+  "description": "react component drag and resize",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production babel -d lib/ src/components/ --copy-files"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justQing00/react-drag-resize.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "resizable",
+    "draggable"
+  ],
+  "author": "tan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justQing00/react-drag-resize/issues"
+  },
+  "homepage": "https://github.com/justQing00/react-drag-resize#readme"
+}
