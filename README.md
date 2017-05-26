@@ -33,10 +33,11 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 ##### 0.1.1
 * draw single ring (finish)
 * multi ring (finish)
-* draw value at the end of ring (finish)
-* draw ring name at the begin of ring (finish)
-* value text in ring vertical center
-* value text rotate for read
+* draw `percent` at the end of ring (finish)
+* draw `name` at the begin of ring (finish)
+* `percent` in ring vertical center (finish)
+* `percent` rotate for read (finish)
+* `percent` stay in bar and `name` out, in a regular rule
 * click event for each ring
 * size adaptation
 * random color for different ring
