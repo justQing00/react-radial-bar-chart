@@ -24,12 +24,14 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * draw single ring (finish)
 * draw value at the end of ring (finish)
 * multi ring
+* multi ring width atuo change
 * click event for each ring
 * draw ring name at the bagin of ring
 * value text in ring vertical center
 * value text rotate for read
 * size adaptation
 * floating effect
+* Tooltip and more info
 * word and chart more clearly
 
 ### Changelog
