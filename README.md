@@ -11,7 +11,17 @@ import RadialBarChart from 'react-radial-bar-chart';
 ### RadialBarChart Props
 ```javascript
 {
-
+  list: [ // example
+    { name: 'Q1', percent: 0.5 },
+    { name: 'Q2', percent: 0.4 },
+    { name: 'Q3', percent: 0.3 },
+    { name: 'Q4', percent: 0.2 },
+  ],
+  lineWidth: 20, // default
+  width: 250,  // default
+  height: 250,  // default
+  radius: 100,  // default
+  strokeStyle: '#1EB6F8',  // default
 }
 ```
 
@@ -24,7 +34,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * draw single ring (finish)
 * multi ring (finish)
 * draw value at the end of ring (finish)
-* draw ring name at the bagin of ring
+* draw ring name at the begin of ring (finish)
 * value text in ring vertical center
 * value text rotate for read
 * click event for each ring
