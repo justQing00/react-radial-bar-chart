@@ -31,17 +31,20 @@ export default class Ring {
   }
 
   setValue = (props = {}) => {
+    const list = props.list || [];
     this.strokeStyle = props.strokeStyle || this.strokeStyle || '#1EB6F8';
     this.lineWidth = props.lineWidth || this.lineWidth || 20;
-    this.radius = props.radius || this.radius || 100;
     this.width = props.width || 250;
     this.height = props.height || 250;
     this.fontSize = props.fontSize || this.fontSize || 12;
     this.startRadius = startRadius;
-    this.tmpAngle = this.startRadius;
+
+    const maxRadius = (Math.min(this.width, this.height) / 2) - (this.lineWidth * 2);
+    this.radiusList = list.map((single, index) => { return (maxRadius - ((this.lineWidth + 4) * index)); });
+    this.tmpAngleList = list.map(() => this.startRadius);
     // may change value
-    this.percent = props.percent;
-    this.endRadius = getEndRadius(props.percent);
+    this.percentList = list.map(single => single.percent || 0);
+    this.endRadiusList = list.map(single => getEndRadius(single.percent));
     this.x = parseInt(props.width / 2, 10);
     this.y = parseInt(props.height / 2, 10);
   }
@@ -58,26 +61,39 @@ export default class Ring {
     ctx.fillText(this.percent, textPosition.x, textPosition.y);
   }
 
-  drawBase = (ctx, endRadius) => { // 绘制
+  drawBase = (ctx) => { // 绘制
     ctx.clearRect(0, 0, this.width, this.height);
-    ctx.beginPath();
-    ctx.strokeStyle = this.strokeStyle;
-    ctx.arc(this.x, this.y, this.radius, this.startRadius, endRadius || this.endRadius, false);
-    ctx.lineWidth = this.lineWidth;
-    ctx.stroke();
-    ctx.closePath();
+    const length = this.endRadiusList.length;
+    for (let i = 0; i < length; i += 1) {
+      ctx.beginPath();
+      ctx.strokeStyle = this.strokeStyle;
+      ctx.arc(this.x, this.y, this.radiusList[i], this.startRadius, this.tmpAngleList[i], false);
+      ctx.lineWidth = this.lineWidth;
+      ctx.stroke();
+      ctx.closePath();
+    }
   }
 
   draw = (ctx) => {
-    if (this.tmpAngle >= this.endRadius) {
-      this.drwaText(ctx);
+    if (changeTmpAngle(this.tmpAngleList, this.endRadiusList)) {
       return;
-    } else if (this.tmpAngle + incre > this.endRadius) {
-      this.tmpAngle = this.endRadius;
-    } else {
-      this.tmpAngle += incre;
     }
-    this.drawBase(ctx, this.tmpAngle);
+    this.drawBase(ctx);
     requestAnimationFrame(() => this.draw(ctx));
   }
 }
+
+const changeTmpAngle = (tmpAngleList, endRadiusList) => {
+  let num = 0;
+  const length = endRadiusList.length;
+  for (let i = 0; i < length; i += 1) {
+    if (tmpAngleList[i] >= endRadiusList[i]) {
+      num += 1;
+    } else if (tmpAngleList[i] + incre > endRadiusList[i]) {
+      tmpAngleList[i] = endRadiusList[i];
+    } else {
+      tmpAngleList[i] += incre;
+    }
+  }
+  return num === length;
+};
