@@ -1,5 +1,5 @@
 import {
-  getPointPosition, getRotate, getTextAlignPercent,
+  getPointPosition, getRotate, getTextAlignPercent, getTextPercent,
   startRadius, changeTmpAngle, generateListObject
 } from './utils/ring';
 
@@ -53,7 +53,7 @@ export default class Ring {
     ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'end';
     for (let i = 0; i < length; i += 1) {
-      ctx.fillText(this.nameList[i], this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
+      ctx.fillText(`${this.nameList[i]} `, this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
     }
     for (let i = 0; i < length; i += 1) {
       ctx.save();
@@ -68,7 +68,7 @@ export default class Ring {
       ctx.textAlign = getTextAlignPercent(tempPercent);
       ctx.translate(textPosition.x, textPosition.y); // change center point
       ctx.rotate(getRotate({ endRadius: this.endRadiusList[i], percent: tempPercent }));
-      ctx.fillText(tempPercent, 0, 0); // percent show
+      ctx.fillText(getTextPercent(tempPercent), 0, 0); // percent show
       ctx.restore();
     }
   }

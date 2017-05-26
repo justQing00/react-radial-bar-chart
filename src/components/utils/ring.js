@@ -41,6 +41,13 @@ export const getTextAlignPercent = (percent) => {
   return 'start';
 };
 
+export const getTextPercent = (percent) => {
+  if (isPercentDirectOut(percent)) {
+    return `${percent} `;
+  }
+  return ` ${percent}`;
+};
+
 // temp Angle change
 export const changeTmpAngle = (tmpAngleList, endRadiusList) => {
   let num = 0;
