@@ -34,6 +34,13 @@ export const getRotate = ({ endRadius, percent }) => {
   return endRadius + startRadius;
 };
 
+export const getTextAlignPercent = (percent) => {
+  if (isPercentDirectOut(percent)) {
+    return 'end';
+  }
+  return 'start';
+};
+
 // temp Angle change
 export const changeTmpAngle = (tmpAngleList, endRadiusList) => {
   let num = 0;
