@@ -37,7 +37,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * draw `name` at the begin of ring (finish)
 * `percent` in ring vertical center (finish)
 * `percent` rotate for read (finish)
-* `percent` stay in bar and `name` out, in a regular rule
+* `percent` stay in bar and `name` out, in a regular rule (finish)
 * click event for each ring
 * size adaptation
 * random color for different ring
