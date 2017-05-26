@@ -15,7 +15,7 @@
 */
 
 const incre = (Math.PI) / 18;
-const startRadius = -Math.PI / 2; // 12点方向开始
+const startRadius = -Math.PI / 2; // start with 12: 00 direction
 const circumference = Math.PI * 2;
 const partCircumference = Math.PI / 2;
 const baseAngle = (2 * Math.PI) / 360;
@@ -74,7 +74,7 @@ export default class Ring {
     this.setValue(props);
   }
 
-  drwaText = (ctx) => {
+  drawText = (ctx) => {
     const length = this.radiusList.length;
     for (let i = 0; i < length; i += 1) {
       const tempPercent = this.percentList[i];
@@ -101,7 +101,7 @@ export default class Ring {
 
   draw = (ctx) => {
     if (changeTmpAngle(this.tmpAngleList, this.endRadiusList)) {
-      this.drwaText(ctx);
+      this.drawText(ctx);
       return;
     }
     this.drawBase(ctx);
