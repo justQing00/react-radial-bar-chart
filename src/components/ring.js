@@ -48,7 +48,7 @@ export default class Ring {
     const length = this.radiusList.length;
     ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
     ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
-    ctx.textAlign = 'center';
+    ctx.textAlign = 'start';
     for (let i = 0; i < length; i += 1) {
       ctx.fillText(this.nameList[i], this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
     }
@@ -62,8 +62,6 @@ export default class Ring {
         lineWidth: this.lineWidth,
         fontSize: this.fontSize,
       });
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-      ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
       ctx.translate(textPosition.x, textPosition.y); // change center point
       ctx.rotate(getRotate({ endRadius: this.endRadiusList[i], percent: tempPercent }));
       ctx.fillText(tempPercent, 0, 0); // percent show
