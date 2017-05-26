@@ -12,9 +12,24 @@ const getEndRadius = (percent) => {
 // get point position
 export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize }) => {
   const angle = baseAngle * ((360 * percent) - 90);
-  const realRadius = radius - ((lineWidth - fontSize) / 2);
+  let realRadius = null;
+  if (percent <= 0.25 || percent > 0.75) { // percent direction is not same
+    realRadius = radius - ((lineWidth - fontSize) / 2);
+  } else {
+    realRadius = radius + ((lineWidth - fontSize) / 2);
+  }
   return { x: center.x + (realRadius * Math.cos(angle)), y: (center.y + (realRadius * Math.sin(angle))) };
 };
+
+
+// get rotate
+export const getRotate = ({ endRadius, percent }) => {
+  if (percent <= 0.25 || percent > 0.75) {  // percent direction is not same
+    return endRadius - startRadius;
+  }
+  return endRadius + startRadius;
+};
+
 
 // temp Angle change
 export const changeTmpAngle = (tmpAngleList, endRadiusList) => {

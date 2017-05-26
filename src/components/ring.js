@@ -1,4 +1,4 @@
-import { startRadius, getPointPosition, changeTmpAngle, generateListObject } from './utils/ring';
+import { startRadius, getPointPosition, changeTmpAngle, generateListObject, getRotate } from './utils/ring';
 
 /*
 * props: {
@@ -65,7 +65,7 @@ export default class Ring {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
       ctx.translate(textPosition.x, textPosition.y); // change center point
-      ctx.rotate(this.endRadiusList[i] - startRadius);
+      ctx.rotate(getRotate({ endRadius: this.endRadiusList[i], percent: tempPercent }));
       ctx.fillText(tempPercent, 0, 0); // percent show
       ctx.restore();
     }
