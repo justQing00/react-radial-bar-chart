@@ -1,19 +1,3 @@
-/*
-* props: {
-    list: [
-      { name: 'Q1', percent: 0.5 },
-      { name: 'Q2', percent: 0.4 },
-      { name: 'Q3', percent: 0.3 },
-      { name: 'Q4', percent: 0.2 },
-    ],
-    lineWidth: 20,
-    width: 250,
-    height: 250,
-    radius: 100,
-    strokeStyle: '#1EB6F8',
-* }
-*/
-
 const incre = (Math.PI) / 18;
 const startRadius = -Math.PI / 2; // start with 12: 00 direction
 const circumference = Math.PI * 2;
@@ -46,6 +30,38 @@ const changeTmpAngle = (tmpAngleList, endRadiusList) => {
   return num === length;
 };
 
+const generateListObject = ({ list, maxRadius, lineWidth }) => {
+  const radiusList = [];
+  const tmpAngleList = [];
+  const percentList = [];
+  const nameList = [];
+  const endRadiusList = [];
+  list.forEach((single, index) => {
+    radiusList.push(maxRadius - ((lineWidth + 4) * index));
+    tmpAngleList.push(startRadius);
+    percentList.push(single.percent);
+    nameList.push(single.name);
+    endRadiusList.push(getEndRadius(single.percent));
+  });
+  return { radiusList, tmpAngleList, percentList, nameList, endRadiusList };
+};
+
+/*
+* props: {
+    list: [
+      { name: 'Q1', percent: 0.5 },
+      { name: 'Q2', percent: 0.4 },
+      { name: 'Q3', percent: 0.3 },
+      { name: 'Q4', percent: 0.2 },
+    ],
+    lineWidth: 20,
+    width: 250,
+    height: 250,
+    radius: 100,
+    strokeStyle: '#1EB6F8',
+* }
+*/
+
 export default class Ring {
   constructor(props) {
     this.setValue(props);
@@ -59,16 +75,16 @@ export default class Ring {
     this.height = props.height || 250;
     this.fontSize = props.fontSize || this.fontSize || 12;
     this.startRadius = startRadius;
-
-    const maxRadius = (Math.min(this.width, this.height) / 2) - (this.lineWidth * 2);
-    this.radiusList = list.map((single, index) => { return (maxRadius - ((this.lineWidth + 4) * index)); });
-    this.tmpAngleList = list.map(() => this.startRadius);
-    // may change value
-    this.percentList = list.map(single => single.percent || 0);
-    this.nameList = list.map(single => single.name || '');
-    this.endRadiusList = list.map(single => getEndRadius(single.percent));
     this.x = parseInt(props.width / 2, 10);
     this.y = parseInt(props.height / 2, 10);
+    // generate
+    const maxRadius = (Math.min(this.width, this.height) / 2) - (this.lineWidth * 2);
+    const object = generateListObject({ list, maxRadius, lineWidth: this.lineWidth });
+    this.radiusList = object.radiusList;
+    this.tmpAngleList = object.tmpAngleList;
+    this.percentList = object.percentList;
+    this.nameList = object.nameList;
+    this.endRadiusList = object.endRadiusList;
   }
 
   updateRing = (props) => {
