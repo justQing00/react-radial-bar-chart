@@ -55,7 +55,13 @@ export default class Ring {
     for (let i = 0; i < length; i += 1) {
       ctx.save();
       const tempPercent = this.percentList[i];
-      const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radiusList[i], tempPercent);
+      const textPosition = getPointPosition({
+        center: { x: this.x, y: this.y },
+        radius: this.radiusList[i],
+        percent: tempPercent,
+        lineWidth: this.lineWidth,
+        fontSize: this.fontSize,
+      });
       ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
       ctx.translate(textPosition.x, textPosition.y); // change center point

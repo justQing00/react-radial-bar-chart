@@ -10,10 +10,11 @@ const getEndRadius = (percent) => {
 };
 
 // get point position
-export const getPointPosition = (center, radius, percent) => {
+export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize }) => {
   const temp = baseAngle * ((360 * percent) - 90);
-  return { x: center.x + (radius * Math.cos(temp)), y: center.y + (radius * Math.sin(temp)) };
+  return { x: center.x + ((radius - (((lineWidth - fontSize) / 2))) * Math.cos(temp)), y: (center.y + ((radius - (((lineWidth - fontSize) / 2))) * Math.sin(temp))) };
 };
+
 
 // temp Angle change
 export const changeTmpAngle = (tmpAngleList, endRadiusList) => {
