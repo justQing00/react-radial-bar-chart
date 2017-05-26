@@ -21,8 +21,16 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 
 ### CheckList
 ##### 0.1.1
-* draw single ring
-* draw value at the end of ring
+* draw single ring (finish)
+* draw value at the end of ring (finish)
+* multi ring
+* click event for each ring
+* draw ring name at the bagin of ring
+* value text in ring vertical center
+* value text rotate for read
+* size adaptation
+* floating effect
+* word and chart more clearly
 
 ### Changelog
 
