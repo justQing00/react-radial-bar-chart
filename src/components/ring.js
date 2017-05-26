@@ -65,6 +65,7 @@ export default class Ring {
     this.tmpAngleList = list.map(() => this.startRadius);
     // may change value
     this.percentList = list.map(single => single.percent || 0);
+    this.nameList = list.map(single => single.name || '');
     this.endRadiusList = list.map(single => getEndRadius(single.percent));
     this.x = parseInt(props.width / 2, 10);
     this.y = parseInt(props.height / 2, 10);
@@ -76,13 +77,14 @@ export default class Ring {
 
   drawText = (ctx) => {
     const length = this.radiusList.length;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+    ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
+    ctx.textAlign = 'center';
     for (let i = 0; i < length; i += 1) {
       const tempPercent = this.percentList[i];
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-      ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
-      ctx.textAlign = 'center';
       const textPosition = getPointPosition({ x: this.x, y: this.y }, this.radiusList[i], tempPercent);
-      ctx.fillText(tempPercent, textPosition.x, textPosition.y);
+      ctx.fillText(tempPercent, textPosition.x, textPosition.y); // percent show
+      ctx.fillText(this.nameList[i], this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
     }
   }
 
