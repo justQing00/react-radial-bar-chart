@@ -1,7 +1,7 @@
 {
-  "name": "react-drag-resize",
+  "name": "react-radial-bar-chart",
   "version": "0.1.1",
-  "description": "react component drag and resize",
+  "description": "react component about radial bar chart",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,18 +19,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justQing00/react-drag-resize.git"
+    "url": "git+https://github.com/justQing00/react-radial-bar-chart.git"
   },
   "keywords": [
     "react",
     "component",
-    "resizable",
-    "draggable"
+    "radial",
+    "bar",
+    "chart"
   ],
   "author": "tan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/justQing00/react-drag-resize/issues"
+    "url": "https://github.com/justQing00/react-radial-bar-chart/issues"
   },
-  "homepage": "https://github.com/justQing00/react-drag-resize#readme"
+  "homepage": "https://github.com/justQing00/react-radial-bar-chart#readme"
 }
