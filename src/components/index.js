@@ -19,7 +19,7 @@ export default class RadialBarChart extends React.Component {
         { name: '问题4', percent: 0.2 },
       ],
     });
-    this.ring.draw(this.ctx);
+    this.ring.drawInit(this.ctx);
   }
 
   componentWillUnmount() {

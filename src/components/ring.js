@@ -1,6 +1,6 @@
 import {
   getPointPosition, getRotate, getTextAlignPercent, getTextPercent,
-  startRadius, changeTmpAngle, generateListObject
+  startRadius, changeTmpAngle, generateListObject, inWitchRing
 } from './utils/ring';
 
 /*
@@ -25,17 +25,19 @@ export default class Ring {
   }
 
   setValue = (props = {}) => {
-    const list = props.list || [];
+    this.list = props.list || this.list || [];
     this.strokeStyle = props.strokeStyle || this.strokeStyle || '#1EB6F8';
     this.lineWidth = props.lineWidth || this.lineWidth || 20;
-    this.width = props.width || 250;
-    this.height = props.height || 250;
+    this.width = props.width || this.width || 250;
+    this.height = props.height || this.height || 250;
     this.fontSize = props.fontSize || this.fontSize || 12;
-    this.x = parseInt(props.width / 2, 10);
-    this.y = parseInt(props.height / 2, 10);
+    this.x = parseInt(this.width / 2, 10);
+    this.y = parseInt(this.height / 2, 10);
+    this.eventPosition = props.eventPosition;
+    this.event = props.event;
     // generate
     const maxRadius = (Math.min(this.width, this.height) / 2) - (this.lineWidth * 2);
-    const object = generateListObject({ list, maxRadius, lineWidth: this.lineWidth });
+    const object = generateListObject({ list: this.list, maxRadius, lineWidth: this.lineWidth });
     this.radiusList = object.radiusList;
     this.tmpAngleList = object.tmpAngleList;
     this.percentList = object.percentList;
@@ -43,8 +45,9 @@ export default class Ring {
     this.endRadiusList = object.endRadiusList;
   }
 
-  updateRing = (props) => {
+  updateRing = (props, ctx) => {
     this.setValue(props);
+    this.draw(ctx);
   }
 
   drawText = (ctx) => {
@@ -73,25 +76,50 @@ export default class Ring {
     }
   }
 
-  drawBase = (ctx) => { // 绘制
+  drawStroke = (ctx, i) => {
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(30, 182, 248, 0.65)';
+    ctx.lineWidth = this.lineWidth;
+    ctx.arc(this.x, this.y, this.radiusList[i], startRadius, this.tmpAngleList[i], false);
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+  drawBase = (ctx, useEnd = false) => { // draw stroke
+    ctx.translate(0, 0); // change center point
     ctx.clearRect(0, 0, this.width, this.height);
     const length = this.endRadiusList.length;
     for (let i = 0; i < length; i += 1) {
       ctx.beginPath();
       ctx.strokeStyle = this.strokeStyle;
-      ctx.arc(this.x, this.y, this.radiusList[i], startRadius, this.tmpAngleList[i], false);
       ctx.lineWidth = this.lineWidth;
+      ctx.arc(this.x, this.y, this.radiusList[i], startRadius, !useEnd ? this.tmpAngleList[i] : this.endRadiusList[i], false);
       ctx.stroke();
       ctx.closePath();
+      const witchRing = inWitchRing({
+        radiusList: this.radiusList,
+        eventPosition: this.eventPosition,
+        center: { x: this.x, y: this.y },
+        lineWidth: this.lineWidth,
+      });
+      console.log('witchRing', witchRing)
+      if (witchRing) {
+        this.drawStroke(ctx, witchRing);
+      }
     }
   }
 
-  draw = (ctx) => {
+  drawInit = (ctx) => {
     if (changeTmpAngle(this.tmpAngleList, this.endRadiusList)) {
       this.drawText(ctx);
       return;
     }
     this.drawBase(ctx);
     requestAnimationFrame(() => this.draw(ctx));
+  }
+
+  draw = (ctx) => {
+    this.drawBase(ctx, true);
+    this.drawText(ctx);
   }
 }
