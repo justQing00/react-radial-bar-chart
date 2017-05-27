@@ -3,6 +3,7 @@ import {
   startRadius, changeTmpAngle, generateListObject, inWitchRing
 } from './utils/ring';
 
+import { getHoverRgbColor } from './utils/color';
 /*
 * props: {
     list: [
@@ -91,7 +92,7 @@ export default class Ring {
       ctx.beginPath();
       ctx.lineWidth = this.lineWidth;
       if (this.currentRing === i) {
-        ctx.strokeStyle = 'rgba(30, 182, 248, 0.65)';
+        ctx.strokeStyle = getHoverRgbColor(this.strokeStyleList[i]);
       } else {
         ctx.strokeStyle = this.strokeStyleList[i];
       }

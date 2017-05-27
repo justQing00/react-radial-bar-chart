@@ -13,10 +13,10 @@ export default class RadialBarChart extends React.Component {
       height: 360,
       list: [
         { name: '问题1', percent: 0.85, backgroundColor: '' },
-        { name: '问题1', percent: 0.5 },
-        { name: '问题2', percent: 0.4 },
-        { name: '问题3', percent: 0.3 },
-        { name: '问题4', percent: 0.2 },
+        { name: '问题2', percent: 0.5, backgroundColor: 'hsl(0, 100%, 50%)' },
+        { name: '问题3', percent: 0.4 },
+        { name: '问题4', percent: 0.3 },
+        { name: '问题5', percent: 0.2 },
       ],
     });
     this.ring.drawInit(this.ctx);
