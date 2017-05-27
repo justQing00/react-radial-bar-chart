@@ -38,10 +38,10 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * `percent` in ring vertical center (finish)
 * `percent` rotate for read (finish)
 * `percent` stay in bar and `name` out, in a regular rule (finish)
+* floating effect (finish)
 * click event for each ring
 * size adaptation
 * random color for different ring
-* floating effect
 * Tooltip and more info
 * word and chart more clearly
 

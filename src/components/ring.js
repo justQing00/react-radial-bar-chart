@@ -76,36 +76,21 @@ export default class Ring {
     }
   }
 
-  drawStroke = (ctx, i) => {
-    ctx.beginPath();
-    ctx.strokeStyle = 'rgba(30, 182, 248, 0.65)';
-    ctx.lineWidth = this.lineWidth;
-    ctx.arc(this.x, this.y, this.radiusList[i], startRadius, this.tmpAngleList[i], false);
-    ctx.stroke();
-    ctx.closePath();
-  }
-
   drawBase = (ctx, useEnd = false) => { // draw stroke
     ctx.translate(0, 0); // change center point
     ctx.clearRect(0, 0, this.width, this.height);
     const length = this.endRadiusList.length;
     for (let i = 0; i < length; i += 1) {
       ctx.beginPath();
-      ctx.strokeStyle = this.strokeStyle;
       ctx.lineWidth = this.lineWidth;
+      if (this.currentRing === i) {
+        ctx.strokeStyle = 'rgba(30, 182, 248, 0.65)';
+      } else {
+        ctx.strokeStyle = this.strokeStyle;
+      }
       ctx.arc(this.x, this.y, this.radiusList[i], startRadius, !useEnd ? this.tmpAngleList[i] : this.endRadiusList[i], false);
       ctx.stroke();
       ctx.closePath();
-      const witchRing = inWitchRing({
-        radiusList: this.radiusList,
-        eventPosition: this.eventPosition,
-        center: { x: this.x, y: this.y },
-        lineWidth: this.lineWidth,
-      });
-      console.log('witchRing', witchRing)
-      if (witchRing) {
-        this.drawStroke(ctx, witchRing);
-      }
     }
   }
 
@@ -119,6 +104,12 @@ export default class Ring {
   }
 
   draw = (ctx) => {
+    this.currentRing = inWitchRing({
+      radiusList: this.radiusList,
+      eventPosition: this.eventPosition,
+      center: { x: this.x, y: this.y },
+      lineWidth: this.lineWidth,
+    });
     this.drawBase(ctx, true);
     this.drawText(ctx);
   }
