@@ -46,6 +46,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * size adaptation
 * Tooltip and more info
 * word and chart more clearly
+* Gradient color
 
 ### Changelog
 
