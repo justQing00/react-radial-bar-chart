@@ -88,8 +88,8 @@ const rgbaToRgba = (color) => {
   return { r, g, b, a: rgbaArray[3] || 1 };
 };
 
-const randomColor = (i) => {
-  return '#1EB6F8';
+export const randomColor = (i) => {
+  return i % 2 ? 'rgb(224,74,116)' : 'rgb(211,0,57)';
 };
 
 const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;

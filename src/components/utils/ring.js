@@ -1,3 +1,5 @@
+import { randomColor } from './color';
+
 const incre = (Math.PI) / 18;
 const circumference = Math.PI * 2;
 const baseAngle = (2 * Math.PI) / 360;
@@ -77,7 +79,7 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
     percentList.push(single.percent);
     nameList.push(single.name);
     endRadiusList.push(getEndRadius(single.percent));
-    strokeStyleList.push(single.backgroundColor || '#1EB6F8');
+    strokeStyleList.push(single.backgroundColor || randomColor(index));
   });
   return { radiusList, tmpAngleList, percentList, nameList, endRadiusList, strokeStyleList };
 };
