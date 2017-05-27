@@ -40,7 +40,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * `percent` stay in bar and `name` out, in a regular rule (finish)
 * floating effect (finish)
 * event for each ring (finish)
-* Hexadecimal color, HSL color to RGB
+* Hexadecimal color, HSL color to RGB (finish)
 * random color for different ring
 * floating effect not out of ring
 * size adaptation

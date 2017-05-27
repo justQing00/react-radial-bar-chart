@@ -33,7 +33,7 @@ const hexToRgb = (color) => {
  */
 
 const hslToRgb = (color) => {
-  const { h, s, l } = getHsl(color);
+  const { h, s, l, a } = getHsl(color);
   let r = null;
   let g = null;
   let b = null;
@@ -54,17 +54,18 @@ const hslToRgb = (color) => {
     g = hue2rgb(p, q, h);
     b = hue2rgb(p, q, h - (1 / 3));
   }
-  return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255), a: 1 };
+  return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255), a };
 };
 
 // example: hsl(0, 100%, 50%)
 const getHsl = (color) => {
+  const begin = color.startsWith('hsla') ? 5 : 4;
   const length = color.length;
-  const hslArray = color.slice(4, length - 1).split(',');
+  const hslArray = color.slice(begin, length - 1).split(',');
   const h = hslArray[0];
   const s = percentToDecimal(hslArray[1]);
   const l = percentToDecimal(hslArray[2]);
-  return { h, s, l };
+  return { h, s, l, a: hslArray[3] || 1 };
 };
 // example: 10% to 0.1
 const percentToDecimal = (percent) => {
@@ -78,7 +79,13 @@ const percentToDecimal = (percent) => {
  * @return  object           RGB色值
  */
 const rgbaToRgba = (color) => {
-  return { r: 30, g: 182, b: 248, a: 1 };
+  const begin = color.startsWith('rgba') ? 5 : 4;
+  const length = color.length;
+  const rgbaArray = color.slice(begin, length - 1).split(',');
+  const r = rgbaArray[0];
+  const g = rgbaArray[1];
+  const b = rgbaArray[2];
+  return { r, g, b, a: rgbaArray[3] || 1 };
 };
 
 const randomColor = (i) => {
@@ -93,8 +100,8 @@ export const getHoverRgbColor = (color) => {
     rgba = hexToRgb(color);
   } else if (color.startsWith('hsl')) {
     rgba = hslToRgb(color);
-  } else if (color.startsWith('rgba')) {
-    rgba = hslToRgb(color);
+  } else if (color.startsWith('rgb')) {
+    rgba = rgbaToRgba(color);
   }
   return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${0.65})`;
 };

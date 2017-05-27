@@ -14,8 +14,9 @@ export default class RadialBarChart extends React.Component {
       list: [
         { name: '问题1', percent: 0.85, backgroundColor: '' },
         { name: '问题2', percent: 0.5, backgroundColor: 'hsl(0, 100%, 50%)' },
-        { name: '问题3', percent: 0.4 },
-        { name: '问题4', percent: 0.3 },
+        { name: '问题2', percent: 0.5, backgroundColor: 'hsla(0, 100%, 50%, 0.4)' },
+        { name: '问题3', percent: 0.4, backgroundColor: 'rgb(33, 34, 38)' },
+        { name: '问题4', percent: 0.3, backgroundColor: 'rgba(33, 34, 38, 0.3)' },
         { name: '问题5', percent: 0.2 },
       ],
     });
