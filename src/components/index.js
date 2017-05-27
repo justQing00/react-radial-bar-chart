@@ -12,7 +12,7 @@ export default class RadialBarChart extends React.Component {
       width: 600,
       height: 360,
       list: [
-        { name: '问题1', percent: 0.85 },
+        { name: '问题1', percent: 0.85, backgroundColor: '' },
         { name: '问题1', percent: 0.5 },
         { name: '问题2', percent: 0.4 },
         { name: '问题3', percent: 0.3 },

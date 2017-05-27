@@ -70,12 +70,14 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   const percentList = [];
   const nameList = [];
   const endRadiusList = [];
+  const strokeStyleList = [];
   list.forEach((single, index) => {
     radiusList.push(maxRadius - ((lineWidth + 4) * index));
     tmpAngleList.push(startRadius);
     percentList.push(single.percent);
     nameList.push(single.name);
     endRadiusList.push(getEndRadius(single.percent));
+    strokeStyleList.push(getEndRadius(single.backgroundColor || '#1EB6F8'));
   });
   return { radiusList, tmpAngleList, percentList, nameList, endRadiusList };
 };

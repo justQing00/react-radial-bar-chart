@@ -6,10 +6,10 @@ import {
 /*
 * props: {
     list: [
-      { name: 'Q1', percent: 0.5 },
-      { name: 'Q2', percent: 0.4 },
-      { name: 'Q3', percent: 0.3 },
-      { name: 'Q4', percent: 0.2 },
+      { name: 'Q1', percent: 0.5, backgroundColor: '' },
+      { name: 'Q2', percent: 0.4, backgroundColor: '' },
+      { name: 'Q3', percent: 0.3, backgroundColor: '' },
+      { name: 'Q4', percent: 0.2, backgroundColor: '' },
     ],
     lineWidth: 20,
     width: 250,
@@ -26,7 +26,6 @@ export default class Ring {
 
   setValue = (props = {}) => {
     this.list = props.list || this.list || [];
-    this.strokeStyle = props.strokeStyle || this.strokeStyle || '#1EB6F8';
     this.lineWidth = props.lineWidth || this.lineWidth || 20;
     this.width = props.width || this.width || 250;
     this.height = props.height || this.height || 250;
@@ -43,6 +42,7 @@ export default class Ring {
     this.percentList = object.percentList;
     this.nameList = object.nameList;
     this.endRadiusList = object.endRadiusList;
+    this.strokeStyleList = object.strokeStyleList;
   }
 
   updateRing = (props, ctx) => {
@@ -93,7 +93,7 @@ export default class Ring {
       if (this.currentRing === i) {
         ctx.strokeStyle = 'rgba(30, 182, 248, 0.65)';
       } else {
-        ctx.strokeStyle = this.strokeStyle;
+        ctx.strokeStyle = this.strokeStyleList[i];
       }
       ctx.arc(this.x, this.y, this.radiusList[i], startRadius, !useEnd ? this.tmpAngleList[i] : this.endRadiusList[i], false);
       ctx.stroke();
