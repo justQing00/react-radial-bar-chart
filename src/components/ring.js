@@ -46,8 +46,15 @@ export default class Ring {
   }
 
   updateRing = (props, ctx) => {
+    this.currentRing = inWitchRing({
+      radiusList: this.radiusList,
+      eventPosition: this.eventPosition,
+      center: { x: this.x, y: this.y },
+      lineWidth: this.lineWidth,
+    });
     this.setValue(props);
     this.draw(ctx);
+    return this.list[this.currentRing];
   }
 
   drawText = (ctx) => {
@@ -104,12 +111,6 @@ export default class Ring {
   }
 
   draw = (ctx) => {
-    this.currentRing = inWitchRing({
-      radiusList: this.radiusList,
-      eventPosition: this.eventPosition,
-      center: { x: this.x, y: this.y },
-      lineWidth: this.lineWidth,
-    });
     this.drawBase(ctx, true);
     this.drawText(ctx);
   }

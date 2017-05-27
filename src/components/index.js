@@ -28,11 +28,15 @@ export default class RadialBarChart extends React.Component {
   }
 
   onClick = (e) => {
-    this.setState({ event: 'click', position: getEventPosition(e) });
+    const { onClick } = this.props;
+    const ringInfo = this.ring.updateRing({ event: 'onClick', eventPosition: getEventPosition(e) }, this.ctx);
+    if (onClick && ringInfo) onClick(e, ringInfo);
   }
 
   onMove = (e) => {
-    this.ring.updateRing({ event: 'mousemove', eventPosition: getEventPosition(e) }, this.ctx);
+    const { onHover } = this.props;
+    const ringInfo = this.ring.updateRing({ event: 'onMove', eventPosition: getEventPosition(e) }, this.ctx);
+    if (onHover && ringInfo) onHover(e, ringInfo);
   }
 
   render() {
