@@ -15,9 +15,8 @@ const hexToRgb = (color) => {
     }
     const sColorChange = [];
     for (let i = 1; i < 7; i += 2) {
-      sColorChange.push(parseInt(`0x${sColor.slice(i, i + 2)}`, 10));
+      sColorChange.push(parseInt(`0x${sColor.slice(i, i + 2)}`));
     }
-
     return { r: sColorChange[0], g: sColorChange[1], b: sColorChange[2], a: 1 };
   }
   return null;
