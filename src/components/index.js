@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import Ring from './ring';
 import { getEventPosition } from './utils/canvas';
 
@@ -21,11 +22,14 @@ export default class RadialBarChart extends React.Component {
       ],
     });
     this.ring.drawInit(this.ctx);
+    window.addEventListener('resize', this.resize);
+    this.resize();
   }
 
   componentWillUnmount() {
     this.canvas.removeEventListener('mousemove', this.onMove, false);
     this.canvas.removeEventListener('click', this.onClick, false);
+    window.removeEventListener('resize', this.resize, false);
   }
 
   onClick = (e) => {
@@ -40,10 +44,17 @@ export default class RadialBarChart extends React.Component {
     if (onHover && ringInfo) onHover(e, ringInfo);
   }
 
+  resize = () => {
+    const $parentNode = ReactDom.findDOMNode(this).parentNode;
+    this.canvas.width = $parentNode.clientWidth;
+    this.canvas.height = $parentNode.clientHeight;
+    this.ring.updateRing({ width: $parentNode.clientWidth, height: $parentNode.clientHeight }, this.ctx);
+  }
+
   render() {
     return (
-      <div>
-        <canvas width='600' height='360' ref={(canvas) => { this.canvas = canvas; }}/>
+      <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
+        <canvas ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
   }

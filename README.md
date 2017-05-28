@@ -22,6 +22,8 @@ import RadialBarChart from 'react-radial-bar-chart';
   height: 250,  // default
   radius: 100,  // default
   strokeStyle: '#1EB6F8',  // default
+  onClick: (e, ringInfo),
+  onHover: (e, ringInfo)
 }
 ```
 
@@ -43,7 +45,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * Hexadecimal color, HSL color to RGB (finish)
 * random color for different ring (finish, just random two color)
 * floating effect not out of ring (finish)
-* size adaptation
+* size adaptation, and fix size calc error
 * Tooltip and more info
 * word and chart more clearly
 * Gradient color
