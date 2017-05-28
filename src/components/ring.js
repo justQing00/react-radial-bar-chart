@@ -26,6 +26,7 @@ export default class Ring {
   }
 
   setValue = (props = {}) => {
+    this.ratio = props.ratio || this.ratio || 1;
     this.list = props.list || this.list || [];
     this.width = props.width || this.width || 250;
     this.height = props.height || this.height || 250;

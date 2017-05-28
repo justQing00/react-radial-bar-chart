@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import ToolTip from './tooltip';
 import Ring from './ring';
-import { getEventPosition } from './utils/canvas';
+import { getEventPosition, getPixelRatio } from './utils/canvas';
+
+const ratio = getPixelRatio();
 
 export default class RadialBarChart extends React.Component {
 
@@ -16,6 +18,7 @@ export default class RadialBarChart extends React.Component {
     this.canvas.addEventListener('mousemove', this.onMove);
     this.canvas.addEventListener('click', this.onClick);
     this.ring = new Ring({
+      ratio,
       list: [
         { name: '问题1', percent: 0.85 },
         { name: '问题2', percent: 0.5 },
