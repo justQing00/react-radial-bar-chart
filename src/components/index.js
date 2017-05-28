@@ -1,9 +1,15 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
+import ToolTip from './tooltip';
 import Ring from './ring';
 import { getEventPosition } from './utils/canvas';
 
 export default class RadialBarChart extends React.Component {
+
+  state = {
+    ringInfo: null,
+    eventPosition: null,
+  }
 
   componentDidMount() {
     this.ctx = this.canvas.getContext('2d');
@@ -38,8 +44,10 @@ export default class RadialBarChart extends React.Component {
 
   onMove = (e) => {
     const { onHover } = this.props;
-    const ringInfo = this.ring.updateRing({ event: 'onMove', eventPosition: getEventPosition(e) }, this.ctx);
+    const eventPosition = getEventPosition(e);
+    const ringInfo = this.ring.updateRing({ event: 'onMove', eventPosition }, this.ctx);
     if (onHover && ringInfo) onHover(e, ringInfo);
+    this.setState({ ringInfo, eventPosition });
   }
 
   resize = () => {
@@ -50,8 +58,10 @@ export default class RadialBarChart extends React.Component {
   }
 
   render() {
+    const { ringInfo, eventPosition } = this.state;
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
+        <ToolTip ringInfo={ringInfo} {...eventPosition}/>
         <canvas style={{ position: 'absolute' }}ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
