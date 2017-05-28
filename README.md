@@ -42,7 +42,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * event for each ring (finish)
 * Hexadecimal color, HSL color to RGB (finish)
 * random color for different ring (finish, just random two color)
-* floating effect not out of ring
+* floating effect not out of ring (finish)
 * size adaptation
 * Tooltip and more info
 * word and chart more clearly
