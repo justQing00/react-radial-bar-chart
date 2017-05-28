@@ -4,13 +4,13 @@ import ToolTip from './tooltip';
 import Ring from './ring';
 import { getEventPosition, getPixelRatio } from './utils/canvas';
 
-const ratio = getPixelRatio();
-
 export default class RadialBarChart extends React.Component {
 
   state = {
     ringInfo: null,
     eventPosition: null,
+    width: null,
+    height: null,
   }
 
   componentDidMount() {
@@ -18,7 +18,6 @@ export default class RadialBarChart extends React.Component {
     this.canvas.addEventListener('mousemove', this.onMove);
     this.canvas.addEventListener('click', this.onClick);
     this.ring = new Ring({
-      ratio,
       list: [
         { name: '问题1', percent: 0.85 },
         { name: '问题2', percent: 0.5 },
@@ -54,19 +53,28 @@ export default class RadialBarChart extends React.Component {
   }
 
   resize = () => {
+    const ratio = getPixelRatio(this.ctx);
+    const { width, height } = this.state;
     const $parentNode = ReactDom.findDOMNode(this).parentNode;
-    this.canvas.width = $parentNode.clientWidth;
-    this.canvas.height = $parentNode.clientHeight;
-    this.ring.updateRing({ width: $parentNode.clientWidth, height: $parentNode.clientHeight }, this.ctx);
+    const clientWidth = $parentNode.clientWidth;
+    const clientHeight = $parentNode.clientHeight;
+    const newWidth = clientWidth * ratio;
+    const newHeight = clientHeight * ratio;
+    this.canvas.width = newWidth;
+    this.canvas.height = newHeight;
+    this.ring.updateRing({ width: newWidth, height: newHeight, ratio }, this.ctx);
+    if (width !== clientWidth || height !== clientHeight) {
+      this.setState({ width: clientWidth, height: clientHeight });
+    }
   }
 
   render() {
-    const { ringInfo, eventPosition } = this.state;
+    const { ringInfo, eventPosition, width, height } = this.state;
     const { tooltip } = this.props;
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
         <ToolTip tooltip={tooltip} ringInfo={ringInfo} {...eventPosition}/>
-        <canvas style={{ position: 'absolute' }}ref={(canvas) => { this.canvas = canvas; }}/>
+        <canvas style={{ position: 'absolute', width, height }}ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
   }
