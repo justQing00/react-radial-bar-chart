@@ -59,9 +59,10 @@ export default class RadialBarChart extends React.Component {
 
   render() {
     const { ringInfo, eventPosition } = this.state;
+    const { tooltip } = this.props;
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
-        <ToolTip ringInfo={ringInfo} {...eventPosition}/>
+        <ToolTip tooltip={tooltip} ringInfo={ringInfo} {...eventPosition}/>
         <canvas style={{ position: 'absolute' }}ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );

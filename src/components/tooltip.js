@@ -1,17 +1,26 @@
 import * as React from 'react';
 
+const defaultFormatter = (ringInfo) => {
+  return [{ key: '占比', value: ringInfo.percent }];
+};
+
 export default class ToolTip extends React.Component {
   render() {
-    const { x, y, ringInfo } = this.props;
+    const { x, y, ringInfo, tooltip } = this.props;
     if (!ringInfo) return null;
-    const { name, percent, backgroundColor } = ringInfo;
+    const { name, backgroundColor } = ringInfo;
+    const { formatter = defaultFormatter, show = true } = tooltip || {};
     return (
-      <div style={{ ...Rectstyle, top: y, left: x }}>
+      <div style={show ? { ...Rectstyle, top: y, left: x } : { display: 'none' }}>
         <div style={headerStyle}>{name}</div>
-        <div style={{ position: 'relative' }}>
-          <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
-          <div style={valueStyle}>{`占比: ${percent}`}</div>
-        </div>
+        {formatter(ringInfo).map(({ key, value }) => {
+          return (
+            <div key={key} style={{ position: 'relative' }}>
+              <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+              <div style={valueStyle}>{`${key}: ${value}`}</div>
+            </div>
+          );
+        })}
       </div>
     );
   }

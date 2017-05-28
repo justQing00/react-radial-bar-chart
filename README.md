@@ -23,7 +23,13 @@ import RadialBarChart from 'react-radial-bar-chart';
   radius: 100,  // default
   strokeStyle: '#1EB6F8',  // default
   onClick: (e, ringInfo),
-  onHover: (e, ringInfo)
+  onHover: (e, ringInfo),
+  tooltip: {  // default
+    show: true,
+    formatter: (ringInfo) => {
+      return [{ key: '占比', value: ringInfo.percent }];
+    }
+  }
 }
 ```
 
@@ -46,7 +52,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * random color for different ring (finish, just random two color)
 * floating effect not out of ring (finish)
 * size adaptation, and fix size calc error (finish)
-* Tooltip and more info
+* Tooltip and more info (finish)
 * word and chart more clearly
 * Gradient color
 * props like echarts
