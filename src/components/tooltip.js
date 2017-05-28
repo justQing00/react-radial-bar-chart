@@ -8,6 +8,10 @@ export default class ToolTip extends React.Component {
     return (
       <div style={{ ...Rectstyle, top: y, left: x }}>
         <div style={headerStyle}>{name}</div>
+        <div style={{ position: 'relative' }}>
+          <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+          <div style={valueStyle}>{`占比: ${percent}`}</div>
+        </div>
       </div>
     );
   }
@@ -22,8 +26,22 @@ const Rectstyle = {
   backgroundColor: 'rgba(0,0,0,0.65)',
   borderRadius: '6px',
   padding: '10px',
+  pointerEvents: 'none',
 };
 
 const headerStyle = {
+  color: '#fff',
+};
+
+const iconStyle = {
+  position: 'absolute',
+  width: '6px',
+  height: '6px',
+  borderRadius: '100%',
+  top: '6px',
+};
+
+const valueStyle = {
+  paddingLeft: '12px',
   color: '#fff',
 };
