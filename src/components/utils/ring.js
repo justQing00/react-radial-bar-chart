@@ -103,7 +103,7 @@ export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, 
 // point is in this ring
 const checkPointInRing = ({ x, y, endRadius }) => {
   const xyangle = Math.atan(y / x) * (180 / Math.PI);
-  return endRadius > getEndRadius(getRealAngleByQuadrant(xyangle, x, y) / 360);
+  return endRadius > getEndRadius(getRealAngleByQuadrant({ xyangle, x, y }) / 360);
 };
 
 const getRealAngleByQuadrant = ({ xyangle, x, y }) => {
