@@ -45,7 +45,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * Hexadecimal color, HSL color to RGB (finish)
 * random color for different ring (finish, just random two color)
 * floating effect not out of ring (finish)
-* size adaptation, and fix size calc error
+* size adaptation, and fix size calc error (finish)
 * Tooltip and more info
 * word and chart more clearly
 * Gradient color

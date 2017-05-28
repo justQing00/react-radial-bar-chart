@@ -37,6 +37,9 @@ export default class Ring {
     // generate
     const maxHalf = parseInt(Math.min(this.width, this.height) / 2, 10);
     this.lineWidth = getLineWidth({ list: this.list, max: maxHalf });
+    if (this.lineWidth <= 0) {
+      throw new Error('node width or height is too small to calculate');
+    }
     const maxRadius = maxHalf - this.lineWidth;
     const object = generateListObject({ list: this.list, maxRadius, lineWidth: this.lineWidth });
     this.radiusList = object.radiusList;

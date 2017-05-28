@@ -54,7 +54,7 @@ export default class RadialBarChart extends React.Component {
   render() {
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
-        <canvas ref={(canvas) => { this.canvas = canvas; }}/>
+        <canvas style={{ position: 'absolute' }}ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
   }
