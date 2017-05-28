@@ -50,6 +50,10 @@ export const getTextPercent = (percent) => {
   return ` ${percent}`;
 };
 
+export const getLineWidth = ({ list, max }) => {
+  return parseInt((max - 16) / list.length, 10) - 4;
+};
+
 // temp Angle change
 export const changeTmpAngle = (tmpAngleList, endRadiusList) => {
   let num = 0;

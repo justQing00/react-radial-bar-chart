@@ -1,5 +1,5 @@
 import {
-  getPointPosition, getRotate, getTextAlignPercent, getTextPercent,
+  getPointPosition, getRotate, getTextAlignPercent, getTextPercent, getLineWidth,
   startRadius, changeTmpAngle, generateListObject, inWitchRing
 } from './utils/ring';
 
@@ -27,7 +27,6 @@ export default class Ring {
 
   setValue = (props = {}) => {
     this.list = props.list || this.list || [];
-    this.lineWidth = props.lineWidth || this.lineWidth || 20;
     this.width = props.width || this.width || 250;
     this.height = props.height || this.height || 250;
     this.fontSize = props.fontSize || this.fontSize || 12;
@@ -36,7 +35,9 @@ export default class Ring {
     this.eventPosition = props.eventPosition;
     this.event = props.event;
     // generate
-    const maxRadius = (Math.min(this.width, this.height) / 2) - (this.lineWidth * 2);
+    const maxHalf = parseInt(Math.min(this.width, this.height) / 2, 10);
+    this.lineWidth = getLineWidth({ list: this.list, max: maxHalf });
+    const maxRadius = maxHalf - this.lineWidth;
     const object = generateListObject({ list: this.list, maxRadius, lineWidth: this.lineWidth });
     this.radiusList = object.radiusList;
     this.tmpAngleList = object.tmpAngleList;
