@@ -10,8 +10,6 @@ export default class RadialBarChart extends React.Component {
     this.canvas.addEventListener('mousemove', this.onMove);
     this.canvas.addEventListener('click', this.onClick);
     this.ring = new Ring({
-      width: 600,
-      height: 360,
       list: [
         { name: '问题1', percent: 0.85 },
         { name: '问题2', percent: 0.5 },
