@@ -49,6 +49,7 @@ export default class Ring {
   updateRing = (props, ctx) => {
     this.currentRing = inWitchRing({
       radiusList: this.radiusList,
+      endRadiusList: this.endRadiusList,
       eventPosition: this.eventPosition,
       center: { x: this.x, y: this.y },
       lineWidth: this.lineWidth,

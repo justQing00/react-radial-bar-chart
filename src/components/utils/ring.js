@@ -84,7 +84,7 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   return { radiusList, tmpAngleList, percentList, nameList, endRadiusList, strokeStyleList };
 };
 
-export const inWitchRing = ({ radiusList, eventPosition, center, lineWidth }) => {
+export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, lineWidth }) => {
   if (!eventPosition) return null;
   const x = eventPosition.x - center.x;
   const y = eventPosition.y - center.y;
@@ -93,9 +93,26 @@ export const inWitchRing = ({ radiusList, eventPosition, center, lineWidth }) =>
   for (let i = 0; i < radiusList.length; i += 1) {
     const beginRadius = radiusList[i] - halfLineWidth;
     const endRadius = radiusList[i] + halfLineWidth;
-    if (pRadius >= beginRadius && pRadius <= endRadius) {
+    if (pRadius >= beginRadius && pRadius <= endRadius && checkPointInRing({ x, y, endRadius: endRadiusList[i]  })) {
       return i;
     }
   }
   return null;
+};
+
+// point is in this ring
+const checkPointInRing = ({ x, y, endRadius }) => {
+  const xyangle = Math.atan(y / x) * (180 / Math.PI);
+  return endRadius > getEndRadius(getRealAngleByQuadrant(xyangle, x, y) / 360);
+};
+
+const getRealAngleByQuadrant = ({ xyangle, x, y }) => {
+  if (x >= 0 && y >= 0) {
+    return 90 - xyangle;
+  } else if (x >= 0 && y < 0) {
+    return 90 + xyangle;
+  } else if (x < 0 && y < 0) {
+    return 270 - xyangle;
+  }
+  return 270 + xyangle;
 };
