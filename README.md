@@ -49,6 +49,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * Tooltip and more info
 * word and chart more clearly
 * Gradient color
+* props like echarts
 
 ### Changelog
 
