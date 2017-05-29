@@ -58,6 +58,7 @@ export default class Ring {
       eventPosition: this.eventPosition,
       center: { x: this.x, y: this.y },
       lineWidth: this.lineWidth,
+      ratio: this.ratio,
     });
     this.setValue(props);
     this.draw(ctx);

@@ -21,9 +21,9 @@ export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize 
   const angle = baseAngle * ((360 * percent) - 90);
   let realRadius = null;
   if (isPercentDirectOut(percent)) { // percent direction is not same
-    realRadius = radius - ((lineWidth - fontSize) / 2);
+    realRadius = radius - (fontSize / 2);
   } else {
-    realRadius = radius + ((lineWidth - fontSize) / 2);
+    realRadius = radius + (fontSize / 2);
   }
   return { x: center.x + (realRadius * Math.cos(angle)), y: (center.y + (realRadius * Math.sin(angle))) };
 };
@@ -88,16 +88,16 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   return { radiusList, tmpAngleList, percentList, nameList, endRadiusList, strokeStyleList };
 };
 
-export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, lineWidth }) => {
+export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, lineWidth, ratio }) => {
   if (!eventPosition) return null;
-  const x = eventPosition.x - center.x;
-  const y = eventPosition.y - center.y;
+  const x = (eventPosition.x * ratio) - center.x;
+  const y = (eventPosition.y * ratio) - center.y;
   const pRadius = Math.sqrt((x * x) + (y * y)); // point radius
   const halfLineWidth = lineWidth / 2;
   for (let i = 0; i < radiusList.length; i += 1) {
     const beginRadius = radiusList[i] - halfLineWidth;
     const endRadius = radiusList[i] + halfLineWidth;
-    if (pRadius >= beginRadius && pRadius <= endRadius && checkPointInRing({ x, y, endRadius: endRadiusList[i]  })) {
+    if (pRadius >= beginRadius && pRadius <= endRadius && checkPointInRing({ x, y, endRadius: endRadiusList[i] })) {
       return i;
     }
   }
