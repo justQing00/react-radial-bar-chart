@@ -109,7 +109,7 @@ export default class Ring {
     }
   }
 
-  drawInit = (ctx) => {
+  drawInit = (ctx) => { // for animation, wait...
     if (changeTmpAngle(this.tmpAngleList, this.endRadiusList)) {
       this.drawText(ctx);
       return;
