@@ -1,14 +1,32 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 
 const defaultFormatter = (ringInfo) => {
   return [{ key: '占比', value: ringInfo.percent }];
 };
 
-const getPosition = ({ width, height, x, y, length }) => {
-  return { x, y };
+const getPosition = ({ width, height, x, y, clientWidth, clientHeight }) => {
+  if (!clientWidth || !clientHeight) return { x, y };
+  let newX = x;
+  let newY = y;
+  if (x + clientWidth > width) {
+    newX = x - 20 - clientWidth;
+  }
+  if (y + clientHeight > height) {
+    newY = y - 20 - clientHeight;
+  }
+  return { x: newX, y: newY };
 };
 
 export default class ToolTip extends React.Component {
+
+  componentDidUpdate() {
+    const $tooltip = ReactDom.findDOMNode(this);
+    if (!$tooltip) return;
+    this.clientWidth = $tooltip.clientWidth;
+    this.clientHeight = $tooltip.clientHeight;
+  }
+
   render() {
     const { x, y, ringInfo, tooltip, width, height } = this.props || {};
     if (!ringInfo) return null;
@@ -18,7 +36,7 @@ export default class ToolTip extends React.Component {
     if (!(list instanceof Array)) {
       throw new Error('formatter must return array');
     }
-    const postion = getPosition({ width, height, x, y, length: list.length });
+    const postion = getPosition({ width, height, x, y, clientWidth: this.clientWidth, clientHeight: this.clientHeight });
     return (
       <div style={show ? { ...Rectstyle, top: postion.y, left: postion.x } : { display: 'none' }}>
         <div style={headerStyle}>{name}</div>
