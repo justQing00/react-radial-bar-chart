@@ -71,7 +71,7 @@ export default class Ring {
     ctx.font = `${realFontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'end';
     for (let i = 0; i < length; i += 1) {
-      ctx.fillText(`${this.nameList[i]} `, this.x, (this.y - this.radiusList[i]) + ((realFontSize - this.lineWidth))); // name show
+      ctx.fillText(`${this.nameList[i]} `, this.x, (this.y - this.radiusList[i]) - ((realFontSize - this.lineWidth) / 2)); // name show
     }
     for (let i = 0; i < length; i += 1) {
       ctx.save();
