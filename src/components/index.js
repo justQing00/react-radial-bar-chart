@@ -64,7 +64,7 @@ export default class RadialBarChart extends React.Component {
     this.canvas.height = newHeight;
     this.ring.updateRing({ width: newWidth, height: newHeight, ratio }, this.ctx);
     if (width !== clientWidth || height !== clientHeight) {
-      this.setState({ width: clientWidth, height: clientHeight });
+      this.setState({ width: clientWidth, height: clientHeight, ringInfo: null, eventPosition: null });
     }
   }
 
@@ -73,7 +73,7 @@ export default class RadialBarChart extends React.Component {
     const { tooltip } = this.props;
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
-        <ToolTip tooltip={tooltip} ringInfo={ringInfo} {...eventPosition}/>
+        <ToolTip width={width} height={height} tooltip={tooltip} ringInfo={ringInfo} {...eventPosition}/>
         <canvas style={{ position: 'absolute', width, height }}ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
