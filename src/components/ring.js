@@ -41,7 +41,7 @@ export default class Ring {
     if (this.lineWidth <= 0) {
       throw new Error('node width or height is too small to calculate');
     }
-    const maxRadius = maxHalf - this.lineWidth;
+    const maxRadius = maxHalf - (this.lineWidth / 2);
     const object = generateListObject({ list: this.list, maxRadius, lineWidth: this.lineWidth });
     this.radiusList = object.radiusList;
     this.tmpAngleList = object.tmpAngleList;
@@ -67,10 +67,11 @@ export default class Ring {
   drawText = (ctx) => {
     const length = this.radiusList.length;
     ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.font = `${this.fontSize}px Helvetica Neue For Number`;
+    const realFontSize = this.fontSize * this.ratio;
+    ctx.font = `${realFontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'end';
     for (let i = 0; i < length; i += 1) {
-      ctx.fillText(`${this.nameList[i]} `, this.x, (this.y - this.radiusList[i]) - ((this.fontSize - this.lineWidth) / 2)); // name show
+      ctx.fillText(`${this.nameList[i]} `, this.x, (this.y - this.radiusList[i]) + ((realFontSize - this.lineWidth))); // name show
     }
     for (let i = 0; i < length; i += 1) {
       ctx.save();
@@ -80,7 +81,7 @@ export default class Ring {
         radius: this.radiusList[i],
         percent: tempPercent,
         lineWidth: this.lineWidth,
-        fontSize: this.fontSize,
+        fontSize: realFontSize,
       });
       ctx.textAlign = getTextAlignPercent(tempPercent);
       ctx.translate(textPosition.x, textPosition.y); // change center point
