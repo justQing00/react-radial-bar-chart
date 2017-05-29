@@ -81,7 +81,6 @@ export default class Ring {
         center: { x: this.x, y: this.y },
         radius: this.radiusList[i],
         percent: tempPercent,
-        lineWidth: this.lineWidth,
         fontSize: realFontSize,
       });
       ctx.textAlign = getTextAlignPercent(tempPercent);

@@ -17,13 +17,13 @@ const isPercentDirectOut = (percent) => {
 };
 
 // get point position
-export const getPointPosition = ({ center, radius, percent, lineWidth, fontSize }) => {
+export const getPointPosition = ({ center, radius, percent, fontSize }) => {
   const angle = baseAngle * ((360 * percent) - 90);
   let realRadius = null;
   if (isPercentDirectOut(percent)) { // percent direction is not same
     realRadius = radius - (fontSize / 2);
   } else {
-    realRadius = radius + (fontSize / 2);
+    realRadius = radius + (fontSize / 4); // back to orign size calc
   }
   return { x: center.x + (realRadius * Math.cos(angle)), y: (center.y + (realRadius * Math.sin(angle))) };
 };
