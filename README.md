@@ -12,7 +12,7 @@ import RadialBarChart from 'react-radial-bar-chart';
 ```javascript
 {
   list: [ // example
-    { name: 'Q1', percent: 0.5 },
+    { name: 'Q1', percent: 0.5, backgroundColor: '' },
     { name: 'Q2', percent: 0.4 },
     { name: 'Q3', percent: 0.3 },
     { name: 'Q4', percent: 0.2 },
