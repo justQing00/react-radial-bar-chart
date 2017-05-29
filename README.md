@@ -21,7 +21,8 @@ import RadialBarChart from 'react-radial-bar-chart';
   width: 250,  // default
   height: 250,  // default
   radius: 100,  // default
-  strokeStyle: '#1EB6F8',  // default
+  strokeStyle: 'rgb(224,74,116)',  // default
+  fillStyle: 'rgba(0, 0, 0, 0.65)', // default
   onClick: (e, ringInfo),
   onHover: (e, ringInfo),
   tooltip: {  // default

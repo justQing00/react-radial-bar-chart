@@ -26,6 +26,7 @@ export default class Ring {
   }
 
   setValue = (props = {}) => {
+    this.fillStyle = props.fillStyle || this.fillStyle || 'rgba(0, 0, 0, 0.65)';
     this.ratio = props.ratio || this.ratio || 1;
     this.list = props.list || this.list || [];
     this.width = props.width || this.width || 250;
@@ -67,7 +68,7 @@ export default class Ring {
 
   drawText = (ctx) => {
     const length = this.radiusList.length;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+    ctx.fillStyle = this.fillStyle;
     const realFontSize = this.fontSize * this.ratio;
     ctx.font = `${realFontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'end';
