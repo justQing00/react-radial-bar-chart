@@ -53,7 +53,7 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * floating effect not out of ring (finish)
 * size adaptation, and fix size calc error (finish)
 * Tooltip and more info (finish)
-* word and chart more clearly
+* word and chart more clearly (finish)
 * Gradient color
 * props like echarts
 
