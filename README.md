@@ -37,7 +37,13 @@ import RadialBarChart from 'react-radial-bar-chart';
 
 In a project I have to make a React `RadialBarChart` compoment, and I found [radial-bar](http://antv.alipay.com/g2/demo/16-polar/radial-bar.html). But I do not need import all of it just for `radial-bar`, so I write one.
 
+![radial-bar](./radial-bar.png)
+
 ### CheckList
+##### 0.1.2
+* Gradient color
+
+### Changelog
 ##### 0.1.1
 * draw single ring (finish)
 * multi ring (finish)
@@ -55,8 +61,3 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 * Tooltip and more info (finish)
 * fix Tooltip out of parentNode (finish)
 * word and chart more clearly (finish)
-* Gradient color
-* props like echarts
-
-### Changelog
-

@@ -17,19 +17,14 @@ export default class RadialBarChart extends React.Component {
     this.ctx = this.canvas.getContext('2d');
     this.canvas.addEventListener('mousemove', this.onMove);
     this.canvas.addEventListener('click', this.onClick);
-    this.ring = new Ring({
-      list: [
-        { name: '问题1', percent: 0.85 },
-        { name: '问题2', percent: 0.5 },
-        { name: '问题3', percent: 0.5 },
-        { name: '问题4', percent: 0.4 },
-        { name: '问题5', percent: 0.3 },
-        { name: '问题6', percent: 0.2 },
-      ],
-    });
+    this.ring = new Ring();
     this.ring.drawInit(this.ctx);
     window.addEventListener('resize', this.resize);
     this.resize();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.ring.updateRing({ list: nextProps.list }, this.ctx);
   }
 
   componentWillUnmount() {
