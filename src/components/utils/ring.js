@@ -4,7 +4,7 @@ const incre = (Math.PI) / 18;
 const circumference = Math.PI * 2;
 const baseAngle = (2 * Math.PI) / 360;
 const partCircumference = Math.PI / 2;
-
+const RING_DISTANCE = 4;
 export const startRadius = -partCircumference; // start with 12: 00 direction
 
 const getEndRadius = (percent) => {
@@ -51,7 +51,7 @@ export const getTextPercent = (percent) => {
 };
 
 export const getLineWidth = ({ list, max }) => {
-  return parseInt((max - 16) / list.length, 10) - 4;
+  return parseInt((max - 16) / list.length, 10) - RING_DISTANCE;
 };
 
 // temp Angle change
@@ -78,7 +78,7 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   const endRadiusList = [];
   const strokeStyleList = [];
   list.forEach((single, index) => {
-    radiusList.push(maxRadius - ((lineWidth + 4) * index));
+    radiusList.push(maxRadius - ((lineWidth + RING_DISTANCE) * index));
     tmpAngleList.push(startRadius);
     percentList.push(single.percent);
     nameList.push(single.name);
@@ -95,7 +95,7 @@ export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, 
   const pRadius = Math.sqrt((x * x) + (y * y)); // point radius
   const halfLineWidth = lineWidth / 2;
   for (let i = 0; i < radiusList.length; i += 1) {
-    const beginRadius = radiusList[i] - halfLineWidth;
+    const beginRadius = radiusList[i] - halfLineWidth - RING_DISTANCE;
     const endRadius = radiusList[i] + halfLineWidth;
     if (pRadius >= beginRadius && pRadius <= endRadius && checkPointInRing({ x, y, endRadius: endRadiusList[i] })) {
       return i;
