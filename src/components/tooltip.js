@@ -1,30 +1,28 @@
-import * as React from 'react';
-
 const defaultFormatter = (ringInfo) => {
   return [{ key: '占比', value: ringInfo.percent }];
 };
 
-export default class ToolTip extends React.Component {
-  render() {
-    const { x, y, ringInfo, tooltip } = this.props;
-    if (!ringInfo) return null;
-    const { name, backgroundColor } = ringInfo;
-    const { formatter = defaultFormatter, show = true } = tooltip || {};
-    return (
-      <div style={show ? { ...Rectstyle, top: y, left: x } : { display: 'none' }}>
-        <div style={headerStyle}>{name}</div>
-        {formatter(ringInfo).map(({ key, value }) => {
-          return (
-            <div key={key} style={{ position: 'relative' }}>
-              <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
-              <div style={valueStyle}>{`${key}: ${value}`}</div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
+const ToolTip = (props) => {
+  const { x, y, ringInfo, tooltip } = props || {};
+  if (!ringInfo) return null;
+  const { name, backgroundColor } = ringInfo;
+  const { formatter = defaultFormatter, show = true } = tooltip || {};
+  return (
+    <div style={show ? { ...Rectstyle, top: y, left: x } : { display: 'none' }}>
+      <div style={headerStyle}>{name}</div>
+      {formatter(ringInfo).map(({ key, value }) => {
+        return (
+          <div key={key} style={{ position: 'relative' }}>
+            <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+            <div style={valueStyle}>{`${key}: ${value}`}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default ToolTip;
 
 const Rectstyle = {
   position: 'absolute',
