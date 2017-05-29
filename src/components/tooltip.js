@@ -2,22 +2,33 @@ const defaultFormatter = (ringInfo) => {
   return [{ key: '占比', value: ringInfo.percent }];
 };
 
+const getPosition = ({ width, height, x, y, length }) => {
+  return { x, y };
+};
+
 const ToolTip = (props) => {
-  const { x, y, ringInfo, tooltip } = props || {};
+  const { x, y, ringInfo, tooltip, width, height } = props || {};
   if (!ringInfo) return null;
   const { name, backgroundColor } = ringInfo;
   const { formatter = defaultFormatter, show = true } = tooltip || {};
+  const list = formatter(ringInfo);
+  if (!(list instanceof Array)) {
+    throw new Error('formatter must return array');
+  }
+  const postion = getPosition({ width, height, x, y, length: list.length });
   return (
-    <div style={show ? { ...Rectstyle, top: y, left: x } : { display: 'none' }}>
+    <div style={show ? { ...Rectstyle, top: postion.y, left: postion.x } : { display: 'none' }}>
       <div style={headerStyle}>{name}</div>
-      {formatter(ringInfo).map(({ key, value }) => {
-        return (
-          <div key={key} style={{ position: 'relative' }}>
-            <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
-            <div style={valueStyle}>{`${key}: ${value}`}</div>
-          </div>
-        );
-      })}
+      <div>
+        {list.map(({ key, value }) => {
+          return (
+            <div key={key} style={{ position: 'relative', whiteSpace: 'nowrap' }}>
+              <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+              <div style={valueStyle}>{`${key}: ${value}`}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
