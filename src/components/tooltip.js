@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 const defaultFormatter = (ringInfo) => {
   return [{ key: '占比', value: ringInfo.percent }];
 };
@@ -6,34 +8,34 @@ const getPosition = ({ width, height, x, y, length }) => {
   return { x, y };
 };
 
-const ToolTip = (props) => {
-  const { x, y, ringInfo, tooltip, width, height } = props || {};
-  if (!ringInfo) return null;
-  const { name, backgroundColor } = ringInfo;
-  const { formatter = defaultFormatter, show = true } = tooltip || {};
-  const list = formatter(ringInfo);
-  if (!(list instanceof Array)) {
-    throw new Error('formatter must return array');
-  }
-  const postion = getPosition({ width, height, x, y, length: list.length });
-  return (
-    <div style={show ? { ...Rectstyle, top: postion.y, left: postion.x } : { display: 'none' }}>
-      <div style={headerStyle}>{name}</div>
-      <div>
-        {list.map(({ key, value }) => {
-          return (
-            <div key={key} style={{ position: 'relative', whiteSpace: 'nowrap' }}>
-              <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
-              <div style={valueStyle}>{`${key}: ${value}`}</div>
-            </div>
-          );
-        })}
+export default class ToolTip extends React.Component {
+  render() {
+    const { x, y, ringInfo, tooltip, width, height } = this.props || {};
+    if (!ringInfo) return null;
+    const { name, backgroundColor } = ringInfo;
+    const { formatter = defaultFormatter, show = true } = tooltip || {};
+    const list = formatter(ringInfo);
+    if (!(list instanceof Array)) {
+      throw new Error('formatter must return array');
+    }
+    const postion = getPosition({ width, height, x, y, length: list.length });
+    return (
+      <div style={show ? { ...Rectstyle, top: postion.y, left: postion.x } : { display: 'none' }}>
+        <div style={headerStyle}>{name}</div>
+        <div>
+          {list.map(({ key, value }) => {
+            return (
+              <div key={key} style={{ position: 'relative', whiteSpace: 'nowrap' }}>
+                <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+                <div style={valueStyle}>{`${key}: ${value}`}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-};
-
-export default ToolTip;
+    );
+  }
+}
 
 const Rectstyle = {
   position: 'absolute',
