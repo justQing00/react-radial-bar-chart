@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 
 const defaultFormatter = (ringInfo) => {
-  return [{ key: '占比', value: ringInfo.percent }];
+  return `占比: ${ringInfo.percent}`;
 };
 
 const getPosition = ({ width, height, x, y, clientWidth, clientHeight }) => {
@@ -28,28 +28,23 @@ export default class ToolTip extends React.Component {
   }
 
   render() {
-    const { x, y, ringInfo, tooltip, width, height } = this.props || {};
+    const { x, y, ringInfo, title, tooltip, width, height, tooltipStyle } = this.props || {};
     if (!ringInfo) return null;
-    const { name, backgroundColor } = ringInfo;
+    const { backgroundColor } = ringInfo;
+
     const { formatter = defaultFormatter, show = true } = tooltip || {};
-    const list = formatter(ringInfo);
-    if (!(list instanceof Array)) {
-      throw new Error('formatter must return array');
-    }
+    const tooltipText = formatter(ringInfo);
+
     const postion = getPosition({ width, height, x, y, clientWidth: this.clientWidth, clientHeight: this.clientHeight });
     return (
-      <div style={show ? { ...Rectstyle, top: postion.y, left: postion.x } : { display: 'none' }}>
-        <div style={headerStyle}>{name}</div>
-        <div>
-          {list.map(({ key, value }) => {
-            return (
-              <div key={key} style={{ position: 'relative', whiteSpace: 'nowrap' }}>
-                <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
-                <div style={valueStyle}>{`${key}: ${value}`}</div>
-              </div>
-            );
-          })}
-        </div>
+      <div style={show ? { ...Object.assign(Rectstyle, tooltipStyle), top: `${postion.y + 20}px`, left: `${postion.x + 20}px` } : { display: 'none' }}>
+        {title ? <div style={headerStyle}>{title}</div> : null}
+        {tooltipText ?
+          <div style={{ position: 'relative', whiteSpace: 'nowrap' }}>
+            <span style={{ ...iconStyle, backgroundColor: backgroundColor || 'rgb(211,0,57)' }}></span>
+            <div style={valueStyle}>{tooltipText}</div>
+          </div> : null
+        }
       </div>
     );
   }
@@ -62,9 +57,11 @@ const Rectstyle = {
   height: 'auto',
   display: 'inline-block',
   backgroundColor: 'rgba(0,0,0,0.65)',
-  borderRadius: '6px',
-  padding: '10px',
   pointerEvents: 'none',
+  padding: '5px',
+  borderRadius: '4px',
+  fontSize: '14px',
+  color: '#fff',
 };
 
 const headerStyle = {
@@ -73,13 +70,12 @@ const headerStyle = {
 
 const iconStyle = {
   position: 'absolute',
-  width: '6px',
-  height: '6px',
+  width: '9px',
+  height: '9px',
   borderRadius: '100%',
-  top: '6px',
+  top: '7px',
 };
 
 const valueStyle = {
-  paddingLeft: '12px',
-  color: '#fff',
+  paddingLeft: '15px',
 };

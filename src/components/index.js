@@ -23,7 +23,7 @@ export default class RadialBarChart extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.ring.updateRing({ list: nextProps.list }, this.ctx);
+    this.ring.updateRing({ ...nextProps }, this.ctx);
   }
 
   componentWillUnmount() {
@@ -56,7 +56,7 @@ export default class RadialBarChart extends React.Component {
     const newHeight = clientHeight * ratio;
     this.canvas.width = newWidth;
     this.canvas.height = newHeight;
-    this.ring.updateRing({ width: newWidth, height: newHeight, ratio }, this.ctx);
+    this.ring.updateRing(Object.assign({ ...this.props }, { width: newWidth, height: newHeight, ratio }), this.ctx);
     if (width !== clientWidth || height !== clientHeight) {
       this.setState({ width: clientWidth, height: clientHeight, ringInfo: null, eventPosition: null });
     }
@@ -64,11 +64,19 @@ export default class RadialBarChart extends React.Component {
 
   render() {
     const { ringInfo, eventPosition, width, height } = this.state;
-    const { tooltip } = this.props;
+    const { tooltip, title, tooltipStyle } = this.props;
     return (
-      <div style={{ position: 'relative', width: '100%', height: '100%', display: 'inline-block' }}>
-        <ToolTip width={width} height={height} tooltip={tooltip} ringInfo={ringInfo} {...eventPosition}/>
-        <canvas style={{ position: 'absolute', width, height }}ref={(canvas) => { this.canvas = canvas; }}/>
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <ToolTip
+          width={width}
+          height={height}
+          tooltip={tooltip}
+          title={title}
+          ringInfo={ringInfo}
+          tooltipStyle={tooltipStyle}
+          {...eventPosition}
+        />
+        <canvas style={{ position: 'absolute', width, height }} ref={(canvas) => { this.canvas = canvas; }}/>
       </div>
     );
   }
