@@ -23,7 +23,7 @@ export default class RadialBarChart extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.ring.updateRing({ ...nextProps }, this.ctx);
+    this.ring.updateRing(nextProps, this.ctx);
   }
 
   componentWillUnmount() {

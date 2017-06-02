@@ -17,10 +17,11 @@ import { getHoverRgbColor } from './utils/color';
     height: 250,
     radius: 100,
 
-    gradient: false,
+    isGradient: false,
     labelStyle: '#333',
     dataStyle: '#fff',
     tooltipStyle: {},
+    title: '',
 * }
 */
 
@@ -32,10 +33,10 @@ export default class Ring {
   setValue = (props = {}) => {
     this.labelStyle = props.labelStyle || this.labelStyle || '#333';
     this.dataStyle = props.dataStyle || this.dataStyle || '#fff';
-    if (this.gradient === undefined) {
-      this.gradient = props.gradient === undefined ? false : props.gradient;
+    if (this.isGradient === undefined) {
+      this.isGradient = props.isGradient === undefined ? false : props.isGradient;
     } else {
-      this.gradient = props.gradient === undefined ? this.gradient : props.gradient;
+      this.isGradient = props.isGradient === undefined ? this.isGradient : props.isGradient;
     }
     this.axisName = props.axisName || this.axisName;
 
@@ -119,7 +120,7 @@ export default class Ring {
       ctx.lineWidth = this.lineWidth;
       if (this.currentRing === i) {
         ctx.strokeStyle = getHoverRgbColor(this.strokeStyleList[i]);
-      } else if (this.gradient) {
+      } else if (this.isGradient) {
         const start = (this.maxRadius / 8) + (this.maxRadius - this.radiusList[i]);
         const end = (this.maxRadius / 8) + (this.maxRadius + this.radiusList[i]);
         const gradient = ctx.createLinearGradient(0, start, 0, end);

@@ -30,7 +30,7 @@ import RadialBarChart from 'react-radial-bar-chart';
     }
   },
   title: '',
-  gradient: false,
+  isGradient: false,
   labelStyle: '#333',
   dataStyle: '#fff',
   tooltipStyle: {
