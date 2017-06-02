@@ -16,7 +16,12 @@ import { getHoverRgbColor } from './utils/color';
     width: 250,
     height: 250,
     radius: 100,
-    strokeStyle: '#1EB6F8',
+
+    isGradient: false,
+    labelStyle: '#333',
+    dataStyle: '#fff',
+    tooltipStyle: {},
+    title: '',
 * }
 */
 
@@ -26,7 +31,15 @@ export default class Ring {
   }
 
   setValue = (props = {}) => {
-    this.fillStyle = props.fillStyle || this.fillStyle || 'rgba(0, 0, 0, 0.65)';
+    this.labelStyle = props.labelStyle || this.labelStyle || '#333';
+    this.dataStyle = props.dataStyle || this.dataStyle || '#fff';
+    if (this.isGradient === undefined) {
+      this.isGradient = props.isGradient === undefined ? false : props.isGradient;
+    } else {
+      this.isGradient = props.isGradient === undefined ? this.isGradient : props.isGradient;
+    }
+    this.axisName = props.axisName || this.axisName;
+
     this.ratio = props.ratio || this.ratio || 1;
     this.list = props.list || this.list || [];
     this.width = props.width || this.width || 250;
@@ -37,13 +50,14 @@ export default class Ring {
     this.eventPosition = props.eventPosition;
     this.event = props.event;
     // generate
-    const maxHalf = parseInt(Math.min(this.width, this.height) / 2, 10);
+    const maxHalf = parseInt(Math.min(this.width, this.height) / 2, 10) * 0.8;
     this.lineWidth = getLineWidth({ list: this.list, max: maxHalf });
+    this.distance = this.lineWidth / 2;
     if (this.lineWidth <= 0) {
       throw new Error('node width or height is too small to calculate');
     }
-    const maxRadius = maxHalf - (this.lineWidth / 2);
-    const object = generateListObject({ list: this.list, maxRadius, lineWidth: this.lineWidth });
+    this.maxRadius = maxHalf - (this.lineWidth / 2);
+    const object = generateListObject({ list: this.list, maxRadius: this.maxRadius, lineWidth: this.lineWidth, distance: this.distance });
     this.radiusList = object.radiusList;
     this.tmpAngleList = object.tmpAngleList;
     this.percentList = object.percentList;
@@ -53,6 +67,7 @@ export default class Ring {
   }
 
   updateRing = (props, ctx) => {
+    this.setValue(props);
     this.currentRing = inWitchRing({
       radiusList: this.radiusList,
       endRadiusList: this.endRadiusList,
@@ -60,21 +75,25 @@ export default class Ring {
       center: { x: this.x, y: this.y },
       lineWidth: this.lineWidth,
       ratio: this.ratio,
+      distance: this.distance,
     });
-    this.setValue(props);
     this.draw(ctx);
     return this.list[this.currentRing];
   }
 
   drawText = (ctx) => {
     const length = this.radiusList.length;
-    ctx.fillStyle = this.fillStyle;
     const realFontSize = this.fontSize * this.ratio;
     ctx.font = `${realFontSize}px Helvetica Neue For Number`;
     ctx.textAlign = 'end';
+    ctx.fillStyle = this.labelStyle;
     for (let i = 0; i < length; i += 1) {
       ctx.fillText(`${this.nameList[i]} `, this.x, ((this.y - this.radiusList[i]) + (realFontSize / 4))); // name show
     }
+    ctx.textAlign = 'center';
+    ctx.fillText(this.axisName || '', this.x, (this.maxRadius / 8) + (realFontSize / 4));
+
+    ctx.fillStyle = this.dataStyle;
     for (let i = 0; i < length; i += 1) {
       ctx.save();
       const tempPercent = this.percentList[i];
@@ -101,6 +120,13 @@ export default class Ring {
       ctx.lineWidth = this.lineWidth;
       if (this.currentRing === i) {
         ctx.strokeStyle = getHoverRgbColor(this.strokeStyleList[i]);
+      } else if (this.isGradient) {
+        const start = (this.maxRadius / 8) + (this.maxRadius - this.radiusList[i]);
+        const end = (this.maxRadius / 8) + (this.maxRadius + this.radiusList[i]);
+        const gradient = ctx.createLinearGradient(0, start, 0, end);
+        gradient.addColorStop('0', getHoverRgbColor(this.strokeStyleList[i], 1));
+        gradient.addColorStop('1', getHoverRgbColor(this.strokeStyleList[i], 0.56));
+        ctx.strokeStyle = gradient;
       } else {
         ctx.strokeStyle = this.strokeStyleList[i];
       }

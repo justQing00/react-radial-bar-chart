@@ -93,7 +93,7 @@ export const randomColor = (i) => {
 };
 
 const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
-export const getHoverRgbColor = (color) => {
+export const getHoverRgbColor = (color, opacity) => {
   let rgba = null;
   if (!color) return randomColor();
   if (reg.test(color)) {
@@ -103,5 +103,5 @@ export const getHoverRgbColor = (color) => {
   } else if (color.startsWith('rgb')) {
     rgba = rgbaToRgba(color);
   }
-  return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${0.65})`;
+  return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${opacity || 0.65})`;
 };

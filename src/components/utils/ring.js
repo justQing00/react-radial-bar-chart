@@ -4,7 +4,6 @@ const incre = (Math.PI) / 18;
 const circumference = Math.PI * 2;
 const baseAngle = (2 * Math.PI) / 360;
 const partCircumference = Math.PI / 2;
-const RING_DISTANCE = 4;
 export const startRadius = -partCircumference; // start with 12: 00 direction
 
 const getEndRadius = (percent) => {
@@ -51,7 +50,9 @@ export const getTextPercent = (percent) => {
 };
 
 export const getLineWidth = ({ list, max }) => {
-  return parseInt((max - 16) / list.length, 10) - RING_DISTANCE;
+  const len = list.length;
+  const distanceLen = (len - 1) / 2;
+  return parseFloat((max - 16) / (len + distanceLen), 10);
 };
 
 // temp Angle change
@@ -70,7 +71,7 @@ export const changeTmpAngle = (tmpAngleList, endRadiusList) => {
   return num === length;
 };
 
-export const generateListObject = ({ list, maxRadius, lineWidth }) => {
+export const generateListObject = ({ list, maxRadius, lineWidth, distance }) => {
   const radiusList = [];
   const tmpAngleList = [];
   const percentList = [];
@@ -78,7 +79,7 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   const endRadiusList = [];
   const strokeStyleList = [];
   list.forEach((single, index) => {
-    radiusList.push(maxRadius - ((lineWidth + RING_DISTANCE) * index));
+    radiusList.push(maxRadius - ((lineWidth + distance) * index));
     tmpAngleList.push(startRadius);
     percentList.push(single.percent);
     nameList.push(single.name);
@@ -88,14 +89,14 @@ export const generateListObject = ({ list, maxRadius, lineWidth }) => {
   return { radiusList, tmpAngleList, percentList, nameList, endRadiusList, strokeStyleList };
 };
 
-export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, lineWidth, ratio }) => {
+export const inWitchRing = ({ radiusList, endRadiusList, eventPosition, center, lineWidth, ratio, distance }) => {
   if (!eventPosition) return null;
   const x = (eventPosition.x * ratio) - center.x;
   const y = (eventPosition.y * ratio) - center.y;
   const pRadius = Math.sqrt((x * x) + (y * y)); // point radius
   const halfLineWidth = lineWidth / 2;
   for (let i = 0; i < radiusList.length; i += 1) {
-    const beginRadius = radiusList[i] - halfLineWidth - RING_DISTANCE;
+    const beginRadius = radiusList[i] - halfLineWidth - distance;
     const endRadius = radiusList[i] + halfLineWidth;
     if (pRadius >= beginRadius && pRadius <= endRadius && checkPointInRing({ x, y, endRadius: endRadiusList[i] })) {
       return i;
