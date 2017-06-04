@@ -1577,6 +1577,14 @@ react-chart-adapt@^0.1.1:
     react "^15.5.4"
     react-dom "^15.5.4"
 
+react-chart-canvas@^0.1.2:
+  version "0.1.2"
+  resolved "http://registry.npm.taobao.org/react-chart-canvas/download/react-chart-canvas-0.1.2.tgz#c658384f29ae47756fc91908df1c38d9e7b156e8"
+  dependencies:
+    react "^15.5.4"
+    react-chart-adapt "^0.1.1"
+    react-chart-tooltip "^0.1.1"
+
 react-chart-tooltip@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/react-chart-tooltip/download/react-chart-tooltip-0.1.1.tgz#c4500418b3fae7c940e73c58f1bf96ae8d670778"

@@ -10,8 +10,7 @@
   "dependencies": {
     "react": "^15.5.4",
     "color-conversion-rgb": "^0.1.1",
-    "react-chart-tooltip": "^0.1.1",
-    "react-chart-adapt": "^0.1.1"
+    "react-chart-canvas": "^0.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

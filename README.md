@@ -21,8 +21,9 @@ import RadialBarChart from 'react-radial-bar-chart';
   width: 250,  // default
   height: 250,  // default
   radius: 100,  // default
-  onClick: (e, ringInfo),
-  onHover: (e, ringInfo),
+  onClick: (e, ringInfo), // default
+  onHover: (e, ringInfo), // default
+  onHover: ({ ratio, clientWidth, clientHeight, ratioWidth, ratioHeight }, e), // default
   title: '',
   isGradient: false,
   labelStyle: '#333',
@@ -43,9 +44,7 @@ import RadialBarChart from 'react-radial-bar-chart';
 ### Base Package
 [color-conversion-rgb](https://github.com/justQing00/color-conversion)
 
-[react-chart-tooltip](https://github.com/justQing00/react-chart-tooltip)
-
-[react-chart-adapt](https://github.com/justQing00/react-chart-adapt)
+[react-chart-canvas](https://github.com/justQing00/react-chart-canvas)
 
 ### Inspiration From
 
@@ -56,6 +55,9 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 ### CheckList
 
 ### Changelog
+##### 0.1.3
+* Split code to `color-conversion-rgb`、`react-chart-canvas`
+
 ##### 0.1.2
 * Gradient color
 

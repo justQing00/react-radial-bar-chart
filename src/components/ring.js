@@ -67,7 +67,7 @@ export default class Ring {
     this.strokeStyleList = object.strokeStyleList;
   }
 
-  updateRing = (props, ctx) => {
+  update = (props, ctx) => {
     this.setValue(props);
     this.currentRing = inWitchRing({
       radiusList: this.radiusList,
