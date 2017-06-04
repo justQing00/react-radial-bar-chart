@@ -23,16 +23,16 @@ import RadialBarChart from 'react-radial-bar-chart';
   radius: 100,  // default
   onClick: (e, ringInfo),
   onHover: (e, ringInfo),
+  title: '',
+  isGradient: false,
+  labelStyle: '#333',
+  dataStyle: '#fff',
   tooltip: {  // default
     show: true,
     formatter: (ringInfo) => {
       return `占比: ${ringInfo.percent*100}%`;
     }
   },
-  title: '',
-  isGradient: false,
-  labelStyle: '#333',
-  dataStyle: '#fff',
   tooltipStyle: {
     backgroundColor: 'rgba(0,0,0,0.65)',
     ...

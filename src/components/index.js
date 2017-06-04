@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import ToolTip from './tooltip';
+import ToolTip from 'react-chart-tooltip';
 import Ring from './ring';
 import { getEventPosition, getPixelRatio } from './utils/canvas';
 
@@ -72,7 +72,7 @@ export default class RadialBarChart extends React.Component {
           height={height}
           tooltip={tooltip}
           title={title}
-          ringInfo={ringInfo}
+          info={ringInfo}
           tooltipStyle={tooltipStyle}
           {...eventPosition}
         />
