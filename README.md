@@ -50,10 +50,11 @@ In a project I have to make a React `RadialBarChart` compoment, and I found [rad
 ![radial-bar](./radial-bar.png)
 
 ### CheckList
+
+### Changelog
 ##### 0.1.2
 * Gradient color
 
-### Changelog
 ##### 0.1.1
 * draw single ring (finish)
 * multi ring (finish)
