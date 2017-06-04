@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production babel -d lib/ src/components/ --copy-files"
   },
   "dependencies": {
+    "color-conversion-rgb": "^0.1.1"
   },
   "devDependencies": {
     "react": "^15.5.4",

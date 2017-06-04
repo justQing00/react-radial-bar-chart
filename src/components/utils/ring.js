@@ -1,4 +1,4 @@
-import { randomColor } from './color';
+import { randomColor } from 'color-conversion';
 
 const incre = (Math.PI) / 18;
 const circumference = Math.PI * 2;

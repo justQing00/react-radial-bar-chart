@@ -40,6 +40,9 @@ import RadialBarChart from 'react-radial-bar-chart';
 }
 ```
 
+### Base Package
+[color-conversion-rgb](https://github.com/justQing00/color-conversion)
+
 ### Inspiration From
 
 In a project I have to make a React `RadialBarChart` compoment, and I found [radial-bar](http://antv.alipay.com/g2/demo/16-polar/radial-bar.html). But its `name` is not centered. Also I do not need import all of it just for `radial-bar`, so I write one.

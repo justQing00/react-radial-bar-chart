@@ -1,9 +1,10 @@
+import { getHoverRgbColor } from 'color-conversion';
+
 import {
   getPointPosition, getRotate, getTextAlignPercent, getTextPercent, getLineWidth,
   startRadius, changeTmpAngle, generateListObject, inWitchRing
 } from './utils/ring';
 
-import { getHoverRgbColor } from './utils/color';
 /*
 * props: {
     list: [
