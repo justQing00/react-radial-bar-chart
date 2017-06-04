@@ -1,8 +1,7 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
 import ToolTip from 'react-chart-tooltip';
+import { RadialChartAdapt, getEventPosition } from 'react-chart-adapt';
 import Ring from './ring';
-import { getEventPosition, getPixelRatio } from './utils/canvas';
 
 export default class RadialBarChart extends React.Component {
 
@@ -18,8 +17,7 @@ export default class RadialBarChart extends React.Component {
     this.canvas.addEventListener('mousemove', this.onMove);
     this.canvas.addEventListener('click', this.onClick);
     this.ring = new Ring(this.props);
-    window.addEventListener('resize', this.resize);
-    this.resize();
+    this.adapt.resize();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,7 +27,6 @@ export default class RadialBarChart extends React.Component {
   componentWillUnmount() {
     this.canvas.removeEventListener('mousemove', this.onMove, false);
     this.canvas.removeEventListener('click', this.onClick, false);
-    window.removeEventListener('resize', this.resize, false);
   }
 
   onClick = (e) => {
@@ -46,17 +43,11 @@ export default class RadialBarChart extends React.Component {
     this.setState({ ringInfo, eventPosition });
   }
 
-  resize = () => {
-    const ratio = getPixelRatio(this.ctx);
+  resize = ({ ratio, clientWidth, clientHeight, ratioWidth, ratioHeight }) => {
     const { width, height } = this.state;
-    const $parentNode = ReactDom.findDOMNode(this).parentNode;
-    const clientWidth = $parentNode.clientWidth;
-    const clientHeight = $parentNode.clientHeight;
-    const newWidth = clientWidth * ratio;
-    const newHeight = clientHeight * ratio;
-    this.canvas.width = newWidth;
-    this.canvas.height = newHeight;
-    this.ring.updateRing(Object.assign({ ...this.props }, { width: newWidth, height: newHeight, ratio }), this.ctx);
+    this.canvas.width = ratioWidth;
+    this.canvas.height = ratioHeight;
+    if (this.ring) this.ring.updateRing(Object.assign({ ...this.props }, { width: ratioWidth, height: ratioHeight, ratio }), this.ctx);
     if (width !== clientWidth || height !== clientHeight) {
       this.setState({ width: clientWidth, height: clientHeight, ringInfo: null, eventPosition: null });
     }
@@ -66,7 +57,11 @@ export default class RadialBarChart extends React.Component {
     const { ringInfo, eventPosition, width, height } = this.state;
     const { tooltip, title, tooltipStyle } = this.props;
     return (
-      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <RadialChartAdapt
+        ref={(adapt) => { this.adapt = adapt; }}
+        onResize={this.resize}
+        ctx={this.ctx}
+      >
         <ToolTip
           width={width}
           height={height}
@@ -77,7 +72,7 @@ export default class RadialBarChart extends React.Component {
           {...eventPosition}
         />
         <canvas style={{ position: 'absolute', width, height }} ref={(canvas) => { this.canvas = canvas; }}/>
-      </div>
+      </RadialChartAdapt>
     );
   }
 }

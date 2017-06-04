@@ -1,4 +1,4 @@
-import { randomColor } from 'color-conversion';
+import { randomColor } from 'color-conversion-rgb';
 
 const incre = (Math.PI) / 18;
 const circumference = Math.PI * 2;

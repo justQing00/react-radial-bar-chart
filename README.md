@@ -42,7 +42,10 @@ import RadialBarChart from 'react-radial-bar-chart';
 
 ### Base Package
 [color-conversion-rgb](https://github.com/justQing00/color-conversion)
+
 [react-chart-tooltip](https://github.com/justQing00/react-chart-tooltip)
+
+[react-chart-adapt](https://github.com/justQing00/react-chart-adapt)
 
 ### Inspiration From
 

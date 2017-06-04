@@ -1,4 +1,4 @@
-import { getHoverRgbColor } from 'color-conversion';
+import { getHoverRgbColor } from 'color-conversion-rgb';
 
 import {
   getPointPosition, getRotate, getTextAlignPercent, getTextPercent, getLineWidth,
