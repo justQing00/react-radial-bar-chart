@@ -23,7 +23,7 @@ import RadialBarChart from 'react-radial-bar-chart';
   radius: 100,  // default
   onClick: (e, ringInfo), // default
   onHover: (e, ringInfo), // default
-  onHover: ({ ratio, clientWidth, clientHeight, ratioWidth, ratioHeight }, e), // default
+  onResize: ({ ratio, clientWidth, clientHeight, ratioWidth, ratioHeight }, e), // default
   title: '',
   isGradient: false,
   labelStyle: '#333',
